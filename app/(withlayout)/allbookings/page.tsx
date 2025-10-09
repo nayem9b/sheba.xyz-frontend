@@ -105,7 +105,7 @@ const AllBookingsPage = () => {
   ];
 
   useEffect(() => {
-    fetch(`http://localhost:3333/api/v1/bookings`)
+    fetch(`http://localhost:3000/api/v1/bookings`)
       .then((res) => res.json())
       .then((data) => {
         setAllBookings(data?.data);

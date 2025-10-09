@@ -37,7 +37,7 @@ const MyBookings = () => {
       userId: user?.id,
     };
     console.log(SendReviewInfo);
-    fetch(`http://localhost:3333/api/v1/review`, {
+    fetch(`http://localhost:3000/api/v1/review`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

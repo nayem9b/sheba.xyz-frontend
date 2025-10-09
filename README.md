@@ -8,7 +8,7 @@
 - **Password:** adminVitamin
 
 ## Backend Information
-- **Local Development:** http://localhost:3333/
+- **Local Development:** http://localhost:3000/
 - **API Documentation:** [Postman Documentation](https://documenter.getpostman.com/view/24754089/2s9YRB1X3f)
 
 ## Repository Links

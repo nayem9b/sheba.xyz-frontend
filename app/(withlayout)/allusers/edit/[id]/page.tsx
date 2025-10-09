@@ -19,7 +19,7 @@ const EditUserPage = ({ params }: IDProps) => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3333/api/v1/users/db/${id}`)
+    fetch(`http://localhost:3000/api/v1/users/db/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -33,7 +33,7 @@ const EditUserPage = ({ params }: IDProps) => {
     const updatedInfo = {
       role: role,
     };
-    fetch(`http://localhost:3333/api/v1/users/${userData?.userId}`, {
+    fetch(`http://localhost:3000/api/v1/users/${userData?.userId}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

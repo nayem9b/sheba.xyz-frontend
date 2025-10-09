@@ -58,7 +58,7 @@ const allServices = () => {
 
           console.log(addServiceSendData);
 
-          fetch(`http://localhost:3333/api/v1/create-service`, {
+          fetch(`http://localhost:3000/api/v1/create-service`, {
             method: "POST",
             headers: {
               "content-type": "application/json",

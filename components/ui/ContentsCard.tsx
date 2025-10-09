@@ -9,7 +9,7 @@ const ContentsCard = ({ content }: any) => {
   const userRole = checkUserRole(session);
 
   const handleDelete = (id: string) => {
-    fetch(`http://localhost:3333/api/v1/contents/${id}`, {
+    fetch(`http://localhost:3000/api/v1/contents/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

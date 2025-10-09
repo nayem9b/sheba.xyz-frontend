@@ -79,7 +79,7 @@ const PurchasePage = ({ params }: { params: any }) => {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3333/api/v1/services/${id}`)
+    fetch(`http://localhost:3000/api/v1/services/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setServiceData(data);
@@ -143,7 +143,7 @@ const PurchasePage = ({ params }: { params: any }) => {
     };
     console.log(SendPurchaseInfo);
     if (confirmation === "I Agree") {
-      fetch(`http://localhost:3333/api/v1/book`, {
+      fetch(`http://localhost:3000/api/v1/book`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

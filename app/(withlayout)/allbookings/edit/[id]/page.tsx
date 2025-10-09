@@ -29,7 +29,7 @@ const EditBookingPage = ({ params }: IDProps) => {
   const { id } = params;
 
   useEffect(() => {
-    fetch(`http://localhost:3333/api/v1/bookings/${id}`)
+    fetch(`http://localhost:3000/api/v1/bookings/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBookingData(data);
@@ -62,7 +62,7 @@ const EditBookingPage = ({ params }: IDProps) => {
     message.loading("Updating.....");
     try {
       console.log(sendUpdateBookingData);
-      fetch(`http://localhost:3333/api/v1/bookings/${id}`, {
+      fetch(`http://localhost:3000/api/v1/bookings/${id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

@@ -35,7 +35,7 @@ const CreateContentpage = () => {
             image: imgData?.data?.url,
           };
 
-          fetch(`http://localhost:3333/api/v1/content`, {
+          fetch(`http://localhost:3000/api/v1/content`, {
             method: "POST",
             headers: {
               "content-type": "application/json",

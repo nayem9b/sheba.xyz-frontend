@@ -57,7 +57,7 @@ const AddCategorypage = () => {
             image: imgData?.data?.url,
           };
 
-          fetch(`http://localhost:3333/api/v1/categories`, {
+          fetch(`http://localhost:3000/api/v1/categories`, {
             method: "POST",
             headers: {
               "content-type": "application/json",

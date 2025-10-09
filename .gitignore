@@ -54,3 +54,5 @@ variables.env
 .Trashes
 ehthumbs.db
 Thumbs.db
+configmap.yaml
+secret.yaml

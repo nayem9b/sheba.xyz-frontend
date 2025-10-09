@@ -60,8 +60,8 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
     const fetchServiceData = async () => {
       try {
         const [serviceRes, reviewsRes] = await Promise.all([
-          fetch(`http://localhost:3333/api/v1/services/${id}`),
-          fetch(`http://localhost:3333/api/v1/reviews/${id}`)
+          fetch(`http://localhost:3000/api/v1/services/${id}`),
+          fetch(`http://localhost:3000/api/v1/reviews/${id}`)
         ]);
         
         const serviceData = await serviceRes.json();
@@ -85,7 +85,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
     }
     
     try {
-      const response = await fetch('http://localhost:3333/api/v1/add-to-cart', {
+      const response = await fetch('http://localhost:3000/api/v1/add-to-cart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user.id, servicesId: id })
@@ -116,7 +116,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
     }
     
     try {
-      const response = await fetch('http://localhost:3333/api/v1/review', {
+      const response = await fetch('http://localhost:3000/api/v1/review', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -134,7 +134,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
       form.reset();
       
       // Refresh reviews
-      const reviewsRes = await fetch(`http://localhost:3333/api/v1/reviews/${id}`);
+      const reviewsRes = await fetch(`http://localhost:3000/api/v1/reviews/${id}`);
       const reviewsData = await reviewsRes.json();
       setReviews(reviewsData.data || []);
       
