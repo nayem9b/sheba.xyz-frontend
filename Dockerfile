@@ -1,38 +1,50 @@
 # -------- Stage 1: Builder --------
 FROM node:18-alpine AS builder
 
-# Set working directory
+ENV NODE_ENV=production
+
 WORKDIR /myapp
 
-# Copy dependency files first (for better caching)
+# Only copy lock + manifest files to leverage build cache
 COPY package.json yarn.lock ./
 
-# Install dependencies
-RUN yarn install --frozen-lockfile
+# Install dependencies (frozen, silent, no cache)
+RUN yarn install --frozen-lockfile --non-interactive --no-progress --prefer-offline
 
-# Copy rest of the application
+# Copy only required app files for build
 COPY . .
 
-# Build Next.js app
-RUN yarn build
+# Build static production assets
+RUN yarn build && yarn install --production --ignore-scripts --prefer-offline --non-interactive
 
 
-# -------- Stage 2: Production Runtime --------
+# -------- Stage 2: Runtime (Distilled) --------
 FROM node:18-alpine AS runner
 
-# Set working directory
-WORKDIR /myapp
+# Create and use a non-root user
+RUN addgroup -S nodejs && adduser -S nodejs -G nodejs
+USER nodejs
 
-# Copy only essential files from builder
-COPY --from=builder /myapp/package.json ./
-COPY --from=builder /myapp/yarn.lock ./
+WORKDIR /myapp
+ENV NODE_ENV=production
+
+# Copy only minimal runtime artifacts
 COPY --from=builder /myapp/.next ./.next
 COPY --from=builder /myapp/public ./public
+COPY --from=builder /myapp/package.json ./package.json
 COPY --from=builder /myapp/node_modules ./node_modules
-COPY --from=builder /myapp/next.config.js ./
 
-# Expose app port
+# Optional: aggressively strip unnecessary data
+RUN rm -rf \
+    node_modules/**/*.md \
+    node_modules/**/docs \
+    node_modules/**/test \
+    node_modules/**/tests \
+    node_modules/**/example* \
+    node_modules/**/benchmark* \
+    && yarn cache clean --mirror \
+    && find . -type f -name "*.map" -delete
+
 EXPOSE 5000
 
-# Run the production server
-CMD ["yarn", "run", "start"]
+CMD ["yarn", "start"]
