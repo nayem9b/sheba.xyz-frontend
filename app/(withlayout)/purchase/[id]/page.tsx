@@ -21,7 +21,7 @@ import {
   message,
 } from "antd";
 import { useMultistepForm } from "@/components/Form/useMultistepForm";
-import { UserForm } from "@/components/Form/UserForm";
+import  UserForm  from "@/components/Form/UserForm";
 import { AddressForm } from "@/components/Form/AddressForm";
 import { AccountForm } from "@/components/Form/AccountForm";
 import { setToLocalStorage } from "@/utils/local-storage";

@@ -316,7 +316,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                           <div>
                             <h3 className="text-lg font-semibold mb-3 text-gray-700 flex items-center">
                               <CheckCircleOutlined className="text-green-500 mr-2" />
-                              What's Included
+                              What&apos;s Included
                             </h3>
                             <ul className="space-y-2">
                               <li className="flex items-start">
@@ -335,7 +335,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
 
                             <h3 className="text-lg font-semibold mt-6 mb-3 text-gray-700 flex items-center">
                               <CheckCircleOutlined className="text-red-400 mr-2" />
-                              What's Not Included
+                              What&apos;s Not Included
                             </h3>
                             <ul className="space-y-2">
                               <li className="flex items-start">
@@ -348,7 +348,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                               </li>
                               <li className="flex items-start">
                                 <span className="text-red-400 mr-2">✗</span>
-                                <span>Manufacturer's warranty</span>
+                                <span>Manufacturer&apos;s warranty</span>
                               </li>
                             </ul>
                           </div>
@@ -436,7 +436,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                         <h2 className="text-2xl font-bold mb-6 text-gray-800">Service Details</h2>
                         <div className="prose max-w-none">
                           <p className="text-gray-700 mb-6">
-                            Our {serviceInfo?.name} service is designed to provide comprehensive solutions with the highest standards of quality and reliability. 
+                            Our service is designed to provide comprehensive solutions with the highest standards of quality and reliability. 
                             Our certified professionals are trained to handle all aspects of the service with precision and care.
                           </p>
                           
@@ -473,7 +473,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                             <div className="p-4 bg-purple-50 rounded-lg">
                               <h4 className="font-medium text-purple-800 mb-2">After Service</h4>
                               <p className="text-gray-700">
-                                You'll receive a detailed service report, and our team will follow up to ensure your complete satisfaction.
+                                You&apos;ll receive a detailed service report, and our team will follow up to ensure your complete satisfaction.
                               </p>
                             </div>
                           </div>

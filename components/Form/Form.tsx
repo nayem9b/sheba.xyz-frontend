@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React, { FormEvent, useState } from "react";
-import { UserForm } from "./UserForm";
+import UserForm from "../Form/UserForm";
 import { AddressForm } from "./AddressForm";
 import { AccountForm } from "./AccountForm";
 import { useMultistepForm } from "./useMultistepForm";

@@ -27,7 +27,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Layout hasSider>
       <SideBar />
-      <Contents className="mt-32">{children}</Contents>
+      <Contents>{children}</Contents>
     </Layout>
   );
 };

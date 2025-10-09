@@ -20,11 +20,27 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (allServices && searchQuery) {
-      const filtered = allServices.data
-        .filter(service => 
+      interface Service {
+        name: string;
+        location: string;
+        category: string;
+        [key: string]: string;
+      }
+
+      interface AllServicesResponse {
+        data: Service[];
+      }
+
+      interface OptionType {
+        value: string;
+        label: React.ReactNode;
+      }
+
+      const filtered: OptionType[] = (allServices as AllServicesResponse).data
+        .filter((service: Service) => 
           service[selectedField]?.toLowerCase().includes(searchQuery.toLowerCase())
         )
-        .map(service => ({
+        .map((service: Service) => ({
           value: service[selectedField],
           label: (
             <div className="flex items-center gap-2">
