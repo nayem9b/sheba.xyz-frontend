@@ -148,13 +148,15 @@ const allServices = () => {
               className="rounded-xl border border-gray-200 p-3 text-base shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none transition"
             >
               <p className="ant-upload-drag-icon">
-                <Image
-                  src={imageUrl || "/placeholder-image.png"}
-                  alt="Preview"
-                  width={128}
-                  height={128}
-                  className="object-cover rounded-xl border border-blue-200 shadow-md"
-                />
+                {imageUrl && (
+                  <img
+                    src={imageUrl}
+                    alt="Preview"
+                    width={128}
+                    height={128}
+                    className="object-cover rounded-xl border border-blue-200 shadow-md"
+                  />
+                )}
               </p>
               <p className="ant-upload-text">Drag & drop an image here, or click to select</p>
             </Upload.Dragger>

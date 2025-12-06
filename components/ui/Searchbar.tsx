@@ -65,7 +65,7 @@ const SearchPage = () => {
   }, [searchQuery, selectedField, allServices]);
 
   const onSearch = (value: string) => {
-    const selectedService = options.find((option) => option.value === value);
+    const selectedService = options?.find((option) => option.value === value);
     if (selectedService) {
       router.push(`/services/${selectedService.id}`);
     }

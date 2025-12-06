@@ -11,7 +11,7 @@ import {
   TagOutlined,
 } from "@ant-design/icons";
 import { useUser } from "@clerk/nextjs";
-import { Button, Input, Space, message, Divider, Badge } from "antd";
+import { Button, Input, Space, message, Divider, Badge, Popconfirm } from "antd";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -37,34 +37,47 @@ const MyCart = () => {
     setCartItems((prev: any) => prev.filter((item: any) => item.id !== id));
   };
 
-  const calculateTotal = () => {
-    return CartItems?.reduce((total: number, item: any) => {
-      return total + (parseFloat(item?.service?.price) || 0);
-    }, 0).toFixed(2);
-  };
+  // subtotal, tax, total calculations handled below
+
+  const itemCount = CartItems?.length || 0;
+  const subtotal = CartItems
+    ? CartItems.reduce((total: number, item: any) => total + (parseFloat(item?.service?.price) || 0), 0)
+    : 0;
+  const tax = +(subtotal * 0.12).toFixed(2); // 12% tax example
+  const discount = 0; // placeholder for future
+  const total = +(subtotal + tax - discount).toFixed(2);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {CartItems?.length > 0 ? (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="container mx-auto px-4 py-12"
+          className="max-w-6xl mx-auto px-6 py-6"
         >
           <motion.header
-            className="text-center mb-12"
+            className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-10 gap-4"
             variants={fadeIn("up", "spring", 0.2, 0.75)}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
           >
-            <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
-              Your Shopping Cart
-            </h1>
-            <p className="text-lg text-gray-600">
-              Review and manage your selected services
-            </p>
+            <div>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">
+                My Cart
+              </h1>
+              <p className="text-sm md:text-base text-gray-600 mt-1">
+                Review and manage the services you&apos;re about to book
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 md:gap-6">
+              <div className="hidden md:block text-sm text-gray-600">{itemCount} items</div>
+              <Badge count={itemCount} offset={[6, -6]}>
+                <ShoppingCartOutlined className="text-2xl text-blue-600" />
+              </Badge>
+            </div>
           </motion.header>
 
           <motion.div
@@ -79,10 +92,10 @@ const MyCart = () => {
                 <motion.div
                   key={item.id}
                   variants={fadeIn("right", "spring", index * 0.1, 0.75)}
-                  className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-200"
+                  className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200"
                 >
                   <div className="flex flex-col md:flex-row">
-                    <div className="md:w-1/4 h-48 md:h-auto">
+                    <div className="md:w-1/4 h-48 md:h-auto relative">
                       <Image
                         src={item?.service?.image || "/placeholder-service.jpg"}
                         alt={item?.service?.name}
@@ -90,12 +103,15 @@ const MyCart = () => {
                         height={300}
                         className="w-full h-full object-cover"
                       />
+                      <div className="absolute left-3 top-3 bg-white/80 px-2 py-1 rounded-lg text-xs text-gray-700 font-semibold">
+                        {item?.service?.category || "Service"}
+                      </div>
                     </div>
 
                     <div className="p-6 flex-1">
                       <div className="flex justify-between items-start">
                         <div>
-                          <h3 className="text-2xl font-semibold text-gray-800 mb-2">
+                          <h3 className="text-xl font-semibold text-gray-800 mb-2">
                             {item?.service?.name}
                           </h3>
                           <div className="flex items-center text-amber-500 mb-3">
@@ -133,22 +149,30 @@ const MyCart = () => {
                           </p>
                         </div>
 
-                        <div className="text-right">
-                          <span className="text-2xl font-bold text-blue-600">
+                        <div className="text-right flex items-start justify-end flex-col">
+                          <span className="text-lg md:text-xl font-semibold text-blue-600">
                             ₹{parseFloat(item?.service?.price || 0).toFixed(2)}
                           </span>
+                          <span className="text-xs text-gray-500 mt-1">per booking</span>
                         </div>
                       </div>
 
                       <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t border-gray-100">
-                        <Button
-                          onClick={() => handleRemoveFromCart(item?.id)}
-                          icon={<DeleteOutlined />}
-                          className="flex items-center text-gray-600 hover:bg-red-50 hover:text-red-500 transition-colors"
-                          size="large"
+                        <Popconfirm
+                          placement="topRight"
+                          title={`Remove ${item?.service?.name} from cart?`}
+                          onConfirm={() => handleRemoveFromCart(item?.id)}
+                          okText="Remove"
+                          cancelText="Cancel"
                         >
-                          Remove
-                        </Button>
+                          <Button
+                            icon={<DeleteOutlined />}
+                            className="flex items-center text-gray-600 hover:bg-red-50 hover:text-red-500 transition-colors"
+                            size="large"
+                          >
+                            Remove
+                          </Button>
+                        </Popconfirm>
                         <Link
                           href={`/purchase/${item?.service?.id}`}
                           className="flex-1"
@@ -161,6 +185,10 @@ const MyCart = () => {
                             Book Now
                           </Button>
                         </Link>
+                        <div className="ml-auto text-sm text-gray-500">
+                          <span>Added: </span>
+                          <span className="font-medium">{item?.createdAt ? new Date(item.createdAt).toLocaleDateString() : "—"}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -170,16 +198,17 @@ const MyCart = () => {
 
             <motion.div
               variants={fadeIn("left", "spring", 0.4, 0.75)}
-              className="h-fit bg-white rounded-2xl shadow-lg p-6 border border-gray-200"
+              className="h-fit bg-white rounded-xl shadow-sm p-6 border border-gray-200 sticky top-24"
+              style={{ alignSelf: 'start' }}
             >
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-6">
                 Order Summary
               </h2>
 
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Subtotal</span>
-                  <span className="font-medium">₹{calculateTotal()}</span>
+                  <span className="font-medium">₹{subtotal.toFixed(2)}</span>
                 </div>
 
                 <div className="flex items-center">
@@ -195,9 +224,18 @@ const MyCart = () => {
 
                 <Divider className="my-4" />
 
-                <div className="flex justify-between text-lg font-semibold">
+                <div className="flex justify-between text-sm text-gray-600">
+                  <span>Tax (12%)</span>
+                  <span>₹{tax.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-sm text-gray-600">
+                  <span>Discount</span>
+                  <span>₹{discount.toFixed(2)}</span>
+                </div>
+
+                <div className="mt-3 border-t pt-3 flex justify-between items-center text-lg font-semibold">
                   <span>Total</span>
-                  <span className="text-blue-600">₹{calculateTotal()}</span>
+                  <span className="text-blue-600">₹{total.toFixed(2)}</span>
                 </div>
               </div>
 
@@ -210,15 +248,12 @@ const MyCart = () => {
               </Button>
 
               <div className="mt-4 text-center text-sm text-gray-500">
-                <p>
-                  or
-                  <Link
-                    href="/allservices"
-                    className="text-blue-500 hover:underline"
-                  >
-                    Continue Shopping
-                  </Link>
-                </p>
+                <span>
+                  or&nbsp;
+                </span>
+                <Link href="/allservices" className="text-blue-500 hover:underline">
+                  Continue Shopping
+                </Link>
               </div>
             </motion.div>
           </motion.div>
@@ -230,14 +265,14 @@ const MyCart = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="bg-white shadow-xl rounded-3xl px-8 py-12 flex flex-col items-center border border-gray-200 max-w-md w-full">
+          <div className="bg-white shadow-md rounded-xl px-8 py-12 flex flex-col items-center border border-gray-200 max-w-md w-full">
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
             >
               <ShoppingCartOutlined className="text-6xl text-blue-400 mb-6" />
             </motion.div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-3 text-center">
+            <h1 className="text-2xl font-bold text-gray-800 mb-3 text-center">
               Your cart is empty
             </h1>
             <p className="text-gray-500 text-center mb-8 max-w-xs">

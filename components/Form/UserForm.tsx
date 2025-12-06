@@ -1,10 +1,18 @@
+"use client";
+
 import { useUser } from "@clerk/nextjs";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import type { Dayjs } from "dayjs";
 import { DatePicker, TimePicker, Input, Button } from "antd";
-import { setToLocalStorage } from "@/utils/local-storage";
-import { UserOutlined, PhoneOutlined, CalendarOutlined, ClockCircleOutlined, MailOutlined } from "@ant-design/icons";
+import { setToLocalStorage, getFromLocalStorage } from "@/utils/local-storage";
+import {
+  UserOutlined,
+  PhoneOutlined,
+  CalendarOutlined,
+  ClockCircleOutlined,
+  MailOutlined,
+} from "@ant-design/icons";
 
 interface UserData {
   firstName: string;
@@ -18,31 +26,59 @@ interface UserFormProps extends UserData {
 }
 
 const formatDate = (date: Dayjs | null) => {
-  return date ? date.format('YYYY-MM-DD') : '';
+  return date ? date.format("YYYY-MM-DD") : "";
 };
 
 const formatTime = (time: Dayjs | null) => {
-  return time ? time.format('h:mm A') : '';
+  return time ? time.format("h:mm A") : "";
 };
 const UserForm = ({ updateFields, ...formData }: UserFormProps) => {
   const { user } = useUser();
+  // Use local state for controlled inputs so the component is editable
+  const [localName, setLocalName] = useState(
+    (formData.fullName as string) || (formData.firstName as string) || "" || ""
+  );
+  const [localContact, setLocalContact] = useState(
+    (formData.contactNo as string) || ""
+  );
+
+  // Initialize local state from localStorage if values exist
+  useEffect(() => {
+    const savedName = getFromLocalStorage("name");
+    const savedContact = getFromLocalStorage("contactNo");
+    if (savedName) setLocalName(savedName);
+    if (savedContact) setLocalContact(savedContact);
+  }, []);
   const [formState, setFormState] = useState({
     date: null as Dayjs | null,
     time: null as Dayjs | null,
   });
 
   const handleChange = (field: string, value: any) => {
-    updateFields({ [field]: value });
+    // Update local controlled state and localStorage, then notify parent
+    if (field === "fullName" || field === "name") {
+      setLocalName(value);
+      setToLocalStorage("name", value);
+    }
+
+    if (field === "contactNo" || field === "contact") {
+      setLocalContact(value);
+      setToLocalStorage("contactNo", value);
+    }
+
+    if (updateFields) {
+      updateFields({ [field]: value });
+    }
   };
 
   const handleDateChange = (date: Dayjs | null) => {
-    setFormState(prev => ({ ...prev, date }));
-    setToLocalStorage('date', formatDate(date));
+    setFormState((prev) => ({ ...prev, date }));
+    setToLocalStorage("date", formatDate(date));
   };
 
   const handleTimeChange = (time: Dayjs | null) => {
-    setFormState(prev => ({ ...prev, time }));
-    setToLocalStorage('time', formatTime(time));
+    setFormState((prev) => ({ ...prev, time }));
+    setToLocalStorage("time", formatTime(time));
   };
 
   return (
@@ -54,8 +90,12 @@ const UserForm = ({ updateFields, ...formData }: UserFormProps) => {
         className="space-y-8"
       >
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Personal Information</h2>
-          <p className="text-gray-500">Please fill in your details to continue</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Personal Information
+          </h2>
+          <p className="text-gray-500">
+            Please fill in your details to continue
+          </p>
         </div>
 
         <div className="space-y-6">
@@ -64,7 +104,7 @@ const UserForm = ({ updateFields, ...formData }: UserFormProps) => {
             <label className="text-sm font-medium text-gray-700">Email</label>
             <Input
               size="large"
-              value={user?.primaryEmailAddress?.emailAddress || ''}
+              value={user?.primaryEmailAddress?.emailAddress || ""}
               disabled
               className="w-full h-12 rounded-lg"
               prefix={<MailOutlined className="text-gray-400" />}
@@ -73,27 +113,31 @@ const UserForm = ({ updateFields, ...formData }: UserFormProps) => {
 
           {/* Full Name */}
           <div className="space-y-1">
-            <label className="text-sm font-medium text-gray-700">Full Name</label>
+            <label className="text-sm font-medium text-gray-700">
+              Full Name
+            </label>
             <Input
               size="large"
               placeholder="John Doe"
               className="w-full h-12 rounded-lg"
               prefix={<UserOutlined className="text-gray-400" />}
-              onChange={(e) => handleChange('fullName', e.target.value)}
-              value={formData.fullName || ''}
+              onChange={(e) => handleChange("fullName", e.target.value)}
+              value={localName}
             />
           </div>
 
           {/* Contact Number */}
           <div className="space-y-1">
-            <label className="text-sm font-medium text-gray-700">Contact Number</label>
+            <label className="text-sm font-medium text-gray-700">
+              Contact Number
+            </label>
             <Input
               size="large"
-              placeholder="+1 (555) 000-0000"
+              placeholder="+880"
               className="w-full h-12 rounded-lg"
               prefix={<PhoneOutlined className="text-gray-400" />}
-              onChange={(e) => handleChange('contactNo', e.target.value)}
-              value={formData.contactNo || ''}
+              onChange={(e) => handleChange("contactNo", e.target.value)}
+              value={localContact}
             />
           </div>
 
@@ -131,7 +175,7 @@ const UserForm = ({ updateFields, ...formData }: UserFormProps) => {
           type="primary"
           size="large"
           className="w-full h-12 bg-blue-600 hover:bg-blue-700 transition-colors rounded-lg font-medium"
-          onClick={() => console.log('Form submitted')}
+          onClick={() => console.log("Form submitted")}
         >
           Continue
         </Button>

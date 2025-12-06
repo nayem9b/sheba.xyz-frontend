@@ -131,7 +131,7 @@ const EditBookingPage = ({ params }: { params: any }) => {
           <Button
             type="primary"
             htmlType="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg shadow-md"
+            className="w-full mx-auto justify-center align-middle bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg shadow-md my-4 pb-4"
           >
             Update Booking
           </Button>
