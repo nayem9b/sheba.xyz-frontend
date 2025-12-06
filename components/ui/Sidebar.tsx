@@ -41,8 +41,13 @@ const SideBar = () => {
 
             {userRole === "admin" && (
               <Link
-                className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-300  hover:text-gray-700"
+                className={`flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg  hover:bg-gray-300  hover:text-gray-700 ${
+                  activeLink === "/admin"
+                    ? "bg-gray-300 text-blue-500"
+                    : "text-gray-600"
+                }`}
                 href="/admin"
+                onClick={() => handleSetActiveLink("/admin")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -66,13 +71,12 @@ const SideBar = () => {
             {(userRole === "admin" || dbUserRole === "admin") && (
               <div>
                 <Link
-                  // className={`flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-300  hover:text-gray-700 ${
-                  //   activeLink === "/" ? "font-bold" : ""
-                  // }`}
                   href={"/allusers"}
-                  onClick={() => handleSetActiveLink('/')}
-                  className={`text-black hover:text-gray-300 ${
-                    activeLink === '/' ? 'font-bold text-blue-500' : 'text-green-500'
+                  onClick={() => handleSetActiveLink("/allusers")}
+                  className={`flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-300 hover:text-gray-700 ${
+                    activeLink === "/allusers"
+                      ? "bg-gray-300 text-blue-500"
+                      : "text-gray-600"
                   }`}
                 >
                   <svg
@@ -93,8 +97,13 @@ const SideBar = () => {
                   <span className="mx-2 text-sm font-medium">Manage Users</span>
                 </Link>
                 <Link
-                  className="flex items-center px-3 py-2 mt-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-300  hover:text-gray-700"
+                  className={`flex items-center px-3 py-2 mt-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-300 hover:text-gray-700 ${
+                    activeLink === "/addservice"
+                      ? "bg-gray-300 text-blue-500"
+                      : "text-gray-600"
+                  }`}
                   href={"/addservice"}
+                  onClick={() => handleSetActiveLink("/addservice")}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -116,8 +125,13 @@ const SideBar = () => {
                   </span>
                 </Link>
                 <Link
-                  className="flex items-center px-3 py-2 mt-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-300  hover:text-gray-700"
+                  className={`flex items-center px-3 py-2 mt-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-300 hover:text-gray-700 ${
+                    activeLink === "/allservicetable"
+                      ? "bg-gray-300 text-blue-500"
+                      : "text-gray-600"
+                  }`}
                   href={"/allservicetable"}
+                  onClick={() => handleSetActiveLink("/allservicetable")}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -149,8 +163,13 @@ const SideBar = () => {
                   content
                 </label>
                 <Link
-                  className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-300  hover:text-gray-700"
+                  className={`flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-300 hover:text-gray-700 ${
+                    activeLink === "/addcategory"
+                      ? "bg-gray-300 text-blue-500"
+                      : "text-gray-600"
+                  }`}
                   href="/addcategory"
+                  onClick={() => handleSetActiveLink("/addcategory")}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -171,56 +190,34 @@ const SideBar = () => {
                     Create Category
                   </span>
                 </Link>
-                {(userRole === "admin" || dbUserRole === "admin") && (
-                  <Link
-                    className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-300  hover:text-gray-700"
-                    href="/addservice"
+                <Link
+                  className={`flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-300 hover:text-gray-700 ${
+                    activeLink === "/allbookings"
+                      ? "bg-gray-300 text-blue-500"
+                      : "text-gray-600"
+                  }`}
+                  href="/allbookings"
+                  onClick={() => handleSetActiveLink("/allbookings")}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="w-5 h-5"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                      />
-                    </svg>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"
+                    />
+                  </svg>
 
-                    <span className="mx-2 text-sm font-medium">
-                      Manage Services
-                    </span>
-                  </Link>
-                )}
-                {(userRole === "admin" || dbUserRole === "admin") && (
-                  <Link
-                    className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-300  hover:text-gray-700"
-                    href="/allbookings"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"
-                      />
-                    </svg>
-
-                    <span className="mx-2 text-sm font-medium">
-                      Manage Bookings
-                    </span>
-                  </Link>
-                )}
+                  <span className="mx-2 text-sm font-medium">
+                    Manage Bookings
+                  </span>
+                </Link>
               </div>
             )}
           </div>
@@ -261,8 +258,13 @@ const SideBar = () => {
               My Dashboard
             </label>
             <Link
-              className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-300  hover:text-gray-700"
+              className={`flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-300 hover:text-gray-700 ${
+                activeLink === "/mycart"
+                  ? "bg-gray-300 text-blue-500"
+                  : "text-gray-600"
+              }`}
               href={"/mycart"}
+              onClick={() => handleSetActiveLink("/mycart")}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -283,8 +285,13 @@ const SideBar = () => {
             </Link>
 
             <Link
-              className="flex items-center px-3 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg  hover:bg-gray-300  hover:text-gray-700"
+              className={`flex items-center px-3 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-300 hover:text-gray-700 ${
+                activeLink === "/mybookings"
+                  ? "bg-gray-300 text-blue-500"
+                  : "text-gray-600"
+              }`}
               href="/mybookings"
+              onClick={() => handleSetActiveLink("/mybookings")}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
