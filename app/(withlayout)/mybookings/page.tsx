@@ -11,6 +11,7 @@ import TextArea from "antd/es/input/TextArea";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import Image from "next/image";
 
 const MyBookings = () => {
   const router = useRouter();
@@ -19,7 +20,6 @@ const MyBookings = () => {
   const [value, setValue] = useState(3);
   const [reviews, setReviews] = useState<any>();
   const { data: myBookings } = useBookingsByUserIdQuery(user?.id);
-  console.log(myBookings);
   const [deleteBooking] = useDeleteBookingMutation();
   const [serviceId, setServiceId] = useState<any>();
 
@@ -27,7 +27,6 @@ const MyBookings = () => {
     message.loading("Sending");
     e.preventDefault();
     const form = e.target;
-    console.log(form);
     const review = form?.review?.value;
     const SendReviewInfo = {
       review: review,
@@ -36,7 +35,6 @@ const MyBookings = () => {
       userImage: user?.imageUrl,
       userId: user?.id,
     };
-    console.log(SendReviewInfo);
     fetch(`http://localhost:3000/api/v1/review`, {
       method: "POST",
       headers: {
@@ -46,105 +44,79 @@ const MyBookings = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         message.success("Your review is posted");
         router.push(`/services/${serviceId}`);
       });
   };
 
   return (
-    <div>
-      {}
-
+    <div className="p-6 bg-gray-50 min-h-screen">
       {myBookings?.data.length > 0 ? (
-        myBookings?.data.map((booking: any) => (
-          <>
-            <article className="rounded-xl border-2 border-gray-100 bg-white">
-              <div className="flex items-start gap-4 p-4 sm:p-6 lg:p-8">
-                <a href="#" className="block shrink-0">
-                  <img
-                    alt="Speaker"
-                    src={booking?.service?.image}
-                    className="w-52 h-52"
-                  />
-                </a>
-
-                <div>
-                  <h3 className="font-medium sm:text-lg">
-                    <a href="#" className="hover:underline">
-                      {booking.service.name}
-                    </a>
-                  </h3>
-                  <p className="line-clamp-2 text-sm text-gray-700">
-                    Price : {booking.service.price} Taka
-                  </p>
-                  <p className="line-clamp-2 text-sm text-gray-700">
-                    Rating : {booking?.service?.rating} ⭐
-                  </p>
-                  <p className="line-clamp-2 text-sm text-gray-700">
-                    Location : {booking?.service?.location} ⭐
-                  </p>
-
-                  <p className="line-clamp-2 text-sm text-gray-700">
-                    Details: {booking.service.details}
-                  </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {myBookings?.data.map((booking: any) => (
+            <article
+              key={booking.id}
+              className="rounded-xl shadow-lg border border-gray-200 bg-white overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            >
+              <div className="relative">
+                <Image
+                  alt="Service"
+                  src={booking?.service?.image}
+                  width={500}
+                  height={300}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded">
+                  {booking?.status.toUpperCase()}
                 </div>
               </div>
+              <div className="p-4">
+                <h3 className="font-semibold text-lg text-gray-800 truncate">
+                  {booking.service.name}
+                </h3>
+                <p className="text-sm text-gray-600 mt-2">
+                  <strong>Price:</strong> {booking.service.price} Taka
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Rating:</strong> {booking?.service?.rating} ⭐
+                </p>
+                <p className="text-sm text-gray-600">
+                  <strong>Location:</strong> {booking?.service?.location}
+                </p>
+                <p className="text-sm text-gray-600 mt-2 line-clamp-3">
+                  {booking.service.details}
+                </p>
+              </div>
               {booking?.status === "delivered" && (
-                <div>
-                  <h1 className="text-center mb-10">
-                    We will be happy to have your review
-                  </h1>
-                  <form className="w-3/6 mx-auto" onSubmit={handlePostReview}>
-                    <span>
-                      <Rate
-                        tooltips={desc}
-                        onChange={setValue}
-                        value={value}
-                        className="mx-auto justify-center place-items-center text-4xl"
-                      />
-                      {value ? (
-                        <span className="ant-rate-text">{desc[value - 1]}</span>
-                      ) : (
-                        ""
-                      )}
-                    </span>
-                    <TextArea rows={4} name="review" />
+                <div className="p-4 border-t border-gray-200">
+                  <h4 className="text-center text-gray-700 mb-4">
+                    We value your feedback!
+                  </h4>
+                  <form onSubmit={handlePostReview} className="space-y-4">
+                    <Rate
+                      tooltips={desc}
+                      onChange={setValue}
+                      value={value}
+                      className="block mx-auto text-2xl"
+                    />
+                    <TextArea
+                      rows={3}
+                      name="review"
+                      placeholder="Write your review here..."
+                      className="w-full border-gray-300 rounded"
+                    />
                     <Button
                       htmlType="submit"
                       type="primary"
-                      className="flex justify-end mt-5"
+                      className="w-full"
                       onClick={() => setServiceId(booking?.service?.id)}
                     >
-                      Submit
+                      Submit Review
                     </Button>
                   </form>
                 </div>
               )}
-              <div className="flex gap-10 justify-end">
-                <div className="flex justify-end ">
-                  <strong className="-mb-[2px] -me-[2px] inline-flex items-center gap-1 rounded-ee-xl rounded-ss-xl bg-green-600 px-3 py-1.5 text-white">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                      />
-                    </svg>
-
-                    <span className="text-[10px] font-medium sm:text-xs">
-                      Status :{" "}
-                      <span className="uppercase">{booking?.status}</span>
-                    </span>
-                  </strong>
-                </div>
+              <div className="flex justify-between items-center p-4 border-t border-gray-200">
                 {booking?.status !== "delivered" && (
                   <Button
                     type="primary"
@@ -159,14 +131,24 @@ const MyBookings = () => {
                 )}
               </div>
             </article>
-          </>
-        ))
+          ))}
+        </div>
       ) : (
         <div className="text-center mt-36">
-          <h1 >You haven&apos;t booked any service</h1>
-          <p className="text-xl">Book one <Link href={'/allservices'}>
-          <ArrowRightOutlined className="text-blue-500"/>
-          </Link></p>
+          <h1 className="text-2xl font-semibold text-gray-800">
+            You haven&apos;t booked any service
+          </h1>
+          <p className="text-lg text-gray-600 mt-2">
+            Book one now and enjoy our services!
+          </p>
+          <Link href="/allservices">
+            <Button
+              type="primary"
+              className="mt-4 flex items-center justify-center mx-auto"
+            >
+              Explore Services <ArrowRightOutlined className="ml-2" />
+            </Button>
+          </Link>
         </div>
       )}
     </div>

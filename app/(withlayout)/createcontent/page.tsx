@@ -26,8 +26,7 @@ const CreateContentpage = () => {
     })
       .then((res) => res.json())
       .then((imgData) => {
-        message.loading("uploading");
-        console.log(imgData);
+        message.loading("Uploading image...");
         if (imgData) {
           const contentSendData = {
             heading: heading,
@@ -45,55 +44,77 @@ const CreateContentpage = () => {
             .then((res) => res.json())
             .then((data) => {
               if (data.data) {
-                message.success("Posted Blog");
+                message.success("Post created successfully!");
                 form.reset();
               } else {
-                message.error("Error adding category");
+                message.error("Error creating post.");
               }
             });
         }
       });
   };
+
   return (
-    <div>
-      <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-lg text-center">
-          <h1 className="text-2xl font-bold sm:text-3xl">Create Post</h1>
-        </div>
-
-        <form
-          onSubmit={handleSubmit}
-          className="mx-auto mb-0 mt-8 max-w-md space-y-4"
-        >
+    <div className="bg-gray-50 min-h-screen py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+          Create a New Post
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="image" className="block text-sm text-gray-600 ">
-              Image
+            <label
+              htmlFor="image"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Upload Image
             </label>
-
             <input
               type="file"
               id="image"
               name="image"
               accept="image/*"
-              className="block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-gray-800 dark:file:text-gray-200  placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600  dark:focus:border-blue-300 cursor-pointer"
+              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
             />
-            <label className="text-sm text-gray-600 mt-10">Post Heading</label>
-
-            <div className="relative">
-              <input
-                type="name"
-                name="heading"
-                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Example: Our cultural festival at Dhaka"
-              />
-            </div>
           </div>
 
-          <label className="text-sm mt-14 text-gray-600">Content</label>
-          <TextArea rows={4} name="content" />
-          <div className="flex flex-row-reverse">
-            <button className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white cursor-pointer">
-              Post
+          <div>
+            <label
+              htmlFor="heading"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Post Heading
+            </label>
+            <input
+              type="text"
+              id="heading"
+              name="heading"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              placeholder="Example: Our cultural festival at Dhaka"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="content"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Content
+            </label>
+            <TextArea
+              id="content"
+              name="content"
+              rows={6}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              placeholder="Write your content here..."
+            />
+          </div>
+
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Publish Post
             </button>
           </div>
         </form>
