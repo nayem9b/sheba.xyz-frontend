@@ -130,35 +130,35 @@ const Homepage = () => {
             <p className="text-gray-600 max-w-2xl mx-auto">
               Explore our wide range of professional services for all your needs
             </p>
-          </div>
-          
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            </div>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
             {categoryData?.data?.slice(0, 12).map((category: any, index: number) => (
               <motion.div
-                key={category._id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05, duration: 0.4 }}
-                viewport={{ once: true, margin: "-50px" }}
-                whileHover={{ y: -5 }}
-                className="group"
+              key={category._id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05, duration: 0.4 }}
+              viewport={{ once: true, margin: "-50px" }}
+              whileHover={{ y: -5 }}
+              className="group"
               >
-                <Link 
-                  href={`/services?category=${category.name}`}
-                  className="block p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 h-full group-hover:border-blue-100"
-                >
-                  <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-3 mx-auto group-hover:bg-blue-100 transition-colors">
-                    <Image
-                      src={category.image || '/category-placeholder.svg'}
-                      alt={category.name}
-                      width={28}
-                      height={28}
-                      className="text-blue-600"
-                    />
-                  </div>
-                  <h3 className="font-medium text-gray-900 text-center group-hover:text-blue-600 transition-colors">
-                    {category.name}
-                  </h3>
+              <Link 
+                href={`/services?category=${category.name}`}
+                className="block p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 h-full group-hover:border-blue-100"
+              >
+                <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-3 mx-auto group-hover:bg-blue-100 transition-colors">
+                <Image
+                  src={category.image || '/category-placeholder.svg'}
+                  alt={category.name}
+                  width={56}
+                  height={56}
+                  className="rounded-lg text-blue-600"
+                />
+                </div>
+                <h3 className="font-medium text-gray-900 text-center group-hover:text-blue-600 transition-colors">
+                {category.name}
+                </h3>
                 </Link>
               </motion.div>
             ))}

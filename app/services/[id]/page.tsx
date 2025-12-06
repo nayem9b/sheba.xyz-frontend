@@ -4,18 +4,18 @@ import { Button, Rate, message, Input, Skeleton, Tabs, Divider } from "antd";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  CheckCircleOutlined, 
-  ShoppingCartOutlined, 
-  StarFilled, 
-  HeartOutlined, 
+import {
+  CheckCircleOutlined,
+  ShoppingCartOutlined,
+  StarFilled,
+  HeartOutlined,
   HeartFilled,
   ShareAltOutlined,
   CreditCardOutlined,
   SafetyCertificateOutlined,
   DollarCircleOutlined,
   CalendarOutlined,
-  ClockCircleOutlined
+  ClockCircleOutlined,
 } from "@ant-design/icons";
 import ReviewCard from "@/components/ui/reviewCard";
 import ServiceFAQ from "@/components/ui/ServiceFAQ";
@@ -25,9 +25,9 @@ import WhyUs from "@/components/ui/WhyUs";
 import HomeSyncBreadCrumb from "@/components/ui/BreadCrumb";
 import Image from "next/image";
 import safety from "../../../Assets/safety-insured.png";
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { useMediaQuery } from 'react-responsive';
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useMediaQuery } from "react-responsive";
 
 const { TextArea } = Input;
 
@@ -36,24 +36,24 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
   const { data: allBookingsArray } = useAllBookingsQuery();
   const { id } = params;
   const { isLoaded, isSignedIn, user } = useUser();
-  
+
   const [serviceInfo, setServiceInfo] = useState<any>();
   const [reviews, setReviews] = useState<any[]>([]);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState("overview");
   const [isScrolled, setIsScrolled] = useState(false);
   const [rating, setRating] = useState(3);
-  
-  const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+
+  const desc = ["terrible", "bad", "normal", "good", "wonderful"];
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
     };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -61,86 +61,91 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
       try {
         const [serviceRes, reviewsRes] = await Promise.all([
           fetch(`http://localhost:3000/api/v1/services/${id}`),
-          fetch(`http://localhost:3000/api/v1/reviews/${id}`)
+          fetch(`http://localhost:3000/api/v1/reviews/${id}`),
         ]);
-        
+
         const serviceData = await serviceRes.json();
         const reviewsData = await reviewsRes.json();
-        
+
         setServiceInfo(serviceData.data);
         setReviews(reviewsData.data || []);
       } catch (error) {
-        console.error('Error fetching data:', error);
-        message.error('Failed to load service details');
+        console.error("Error fetching data:", error);
+        message.error("Failed to load service details");
       }
     };
-    
+
     fetchServiceData();
   }, [id]);
 
   const handleAddToCart = async () => {
     if (!user) {
-      message.warning('Please sign in to add to cart');
+      message.warning("Please sign in to add to cart");
       return;
     }
-    
+
     try {
-      const response = await fetch('http://localhost:3000/api/v1/add-to-cart', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: user.id, servicesId: id })
+      const response = await fetch("http://localhost:3000/api/v1/add-to-cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user.id, servicesId: id }),
       });
+
+      if (!response.ok) throw new Error("Failed to add to cart");
+      message.success("Service added to cart!");
+      window.location.href = "/mycart";
       
-      if (!response.ok) throw new Error('Failed to add to cart');
-      message.success('Service added to cart!');
     } catch (error) {
-      console.error('Error adding to cart:', error);
-      message.error('Failed to add to cart');
+      console.error("Error adding to cart:", error);
+      message.error("Failed to add to cart");
     }
   };
 
   const handlePostReview = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!user) {
-      message.warning('Please sign in to post a review');
+      message.warning("Please sign in to post a review");
       return;
     }
-    
+
     const form = e.target as HTMLFormElement;
-    const reviewText = (form.elements.namedItem('review') as HTMLTextAreaElement)?.value;
-    
+    const reviewText = (
+      form.elements.namedItem("review") as HTMLTextAreaElement
+    )?.value;
+
     if (!reviewText) {
-      message.warning('Please write a review');
+      message.warning("Please write a review");
       return;
     }
-    
+
     try {
-      const response = await fetch('http://localhost:3000/api/v1/review', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:3000/api/v1/review", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           review: reviewText,
           rating,
           servicesId: id,
           userId: user.id,
-          userImage: user.imageUrl
-        })
+          userImage: user.imageUrl,
+        }),
       });
-      
-      if (!response.ok) throw new Error('Failed to post review');
-      
-      message.success('Review posted successfully!');
+
+      if (!response.ok) throw new Error("Failed to post review");
+
+      message.success("Review posted successfully!");
       form.reset();
-      
+
       // Refresh reviews
-      const reviewsRes = await fetch(`http://localhost:3000/api/v1/reviews/${id}`);
+      const reviewsRes = await fetch(
+        `http://localhost:3000/api/v1/reviews/${id}`
+      );
       const reviewsData = await reviewsRes.json();
       setReviews(reviewsData.data || []);
-      
     } catch (error) {
-      console.error('Error posting review:', error);
-      message.error('Failed to post review');
+      console.error("Error posting review:", error);
+      message.error("Failed to post review");
     }
   };
 
@@ -154,13 +159,17 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
     );
   }
 
-  const bookingResult = allBookingsArray?.data?.filter(
-    (booking: any) => booking.userId === user?.id && booking?.servicesId === serviceInfo?.id
-  ) || [];
-  
-  const reviewResult = allReviewsArray?.data?.filter(
-    (review: any) => review.userId === user?.id && review?.servicesId === serviceInfo?.id
-  ) || [];
+  const bookingResult =
+    allBookingsArray?.data?.filter(
+      (booking: any) =>
+        booking.userId === user?.id && booking?.servicesId === serviceInfo?.id
+    ) || [];
+
+  const reviewResult =
+    allReviewsArray?.data?.filter(
+      (review: any) =>
+        review.userId === user?.id && review?.servicesId === serviceInfo?.id
+    ) || [];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 pb-20">
@@ -183,8 +192,8 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                   <span className="font-semibold">{serviceInfo?.rating}</span>
                 </div>
               </div>
-              <Button 
-                type="primary" 
+              <Button
+                type="primary"
                 size="large"
                 icon={<ShoppingCartOutlined />}
                 onClick={handleAddToCart}
@@ -198,7 +207,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <motion.div 
+      <motion.div
         className="relative mt-16"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -217,7 +226,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
             {[1, 2, 3].map((item) => (
               <div key={item} className="h-96 w-full">
                 <Image
-                  src={serviceInfo?.image || '/placeholder-service.jpg'}
+                  src={serviceInfo?.image || "/placeholder-service.jpg"}
                   alt={`${serviceInfo?.name} ${item}`}
                   fill
                   className="object-cover"
@@ -226,7 +235,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
               </div>
             ))}
           </Carousel>
-          
+
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent pt-20 pb-6 px-4">
             <div className="max-w-7xl mx-auto">
               <HomeSyncBreadCrumb
@@ -246,25 +255,30 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                     <div className="flex items-center bg-green-600/90 text-white px-3 py-1 rounded-full text-sm font-medium">
                       <StarFilled className="mr-1 text-yellow-300" />
                       <span className="font-bold">{serviceInfo?.rating}</span>
-                      <span className="ml-1">({reviews?.length || 0} reviews)</span>
+                      <span className="ml-1">
+                        ({reviews?.length || 0} reviews)
+                      </span>
                     </div>
                     <div className="hidden md:flex items-center gap-4 text-sm text-gray-200">
                       <span className="flex items-center gap-1">
-                        <CheckCircleOutlined className="text-green-400" /> On Time
+                        <CheckCircleOutlined className="text-green-400" /> On
+                        Time
                       </span>
                       <span className="flex items-center gap-1">
-                        <SafetyCertificateOutlined className="text-blue-400" /> Verified
+                        <SafetyCertificateOutlined className="text-blue-400" />{" "}
+                        Verified
                       </span>
                       <span className="flex items-center gap-1">
-                        <DollarCircleOutlined className="text-green-400" /> Best Price
+                        <DollarCircleOutlined className="text-green-400" /> Best
+                        Price
                       </span>
                     </div>
                   </div>
                 </div>
                 <div className="flex gap-3 mt-4 md:mt-0">
-                  <Button 
-                    type="text" 
-                    shape="circle" 
+                  <Button
+                    type="text"
+                    shape="circle"
                     icon={
                       isFavorite ? (
                         <HeartFilled className="text-red-500 text-xl" />
@@ -275,9 +289,9 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                     onClick={() => setIsFavorite(!isFavorite)}
                     className="flex items-center justify-center bg-black/30 hover:bg-black/40"
                   />
-                  <Button 
-                    type="text" 
-                    shape="circle" 
+                  <Button
+                    type="text"
+                    shape="circle"
                     icon={<ShareAltOutlined className="text-white text-xl" />}
                     className="flex items-center justify-center bg-black/30 hover:bg-black/40"
                   />
@@ -292,12 +306,12 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 relative">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Main Content */}
-          <motion.article 
+          <motion.article
             className="flex-1 min-w-0 lg:pr-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            style={{ maxWidth: 'calc(100% - 384px)' }}
+            style={{ maxWidth: "calc(100% - 384px)" }}
           >
             {/* Service Tabs */}
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
@@ -307,11 +321,13 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                 className="service-tabs"
                 items={[
                   {
-                    key: 'overview',
-                    label: 'Overview',
+                    key: "overview",
+                    label: "Overview",
                     children: (
                       <div className="p-6">
-                        <h2 className="text-2xl font-bold mb-6 text-gray-800">Service Overview</h2>
+                        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+                          Service Overview
+                        </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                           <div>
                             <h3 className="text-lg font-semibold mb-3 text-gray-700 flex items-center">
@@ -352,7 +368,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                               </li>
                             </ul>
                           </div>
-                          
+
                           <div className="bg-blue-50 p-6 rounded-xl">
                             <h3 className="text-lg font-semibold mb-4 text-blue-800 flex items-center">
                               <SafetyCertificateOutlined className="mr-2" />
@@ -364,7 +380,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                                 "Use of PPE (masks, gloves, sanitizers)",
                                 "Equipment disinfection",
                                 "Contactless service options",
-                                "Social distancing maintained"
+                                "Social distancing maintained",
                               ].map((item, index) => (
                                 <li key={index} className="flex items-start">
                                   <span className="text-blue-500 mr-2">•</span>
@@ -374,15 +390,16 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                             </ul>
                             <div className="mt-6 p-4 bg-white rounded-lg border border-blue-100">
                               <div className="flex items-center gap-3">
-                                <Image 
-                                  src={safety} 
-                                  alt="Safety Certified" 
+                                <Image
+                                  src={safety}
+                                  alt="Safety Certified"
                                   className="w-16 h-auto"
                                   width={64}
                                   height={64}
                                 />
                                 <p className="text-sm text-gray-600">
-                                  We follow strict safety protocols to ensure your peace of mind during every service.
+                                  We follow strict safety protocols to ensure
+                                  your peace of mind during every service.
                                 </p>
                               </div>
                             </div>
@@ -392,26 +409,34 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                         <Divider className="my-8" />
 
                         <div>
-                          <h3 className="text-xl font-semibold mb-4 text-gray-800">How It Works</h3>
+                          <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                            How It Works
+                          </h3>
                           <div className="grid md:grid-cols-3 gap-6">
                             {[
                               {
-                                icon: <CalendarOutlined className="text-3xl text-blue-600" />,
+                                icon: (
+                                  <CalendarOutlined className="text-3xl text-blue-600" />
+                                ),
                                 title: "1. Book an Appointment",
-                                desc: "Select your preferred date and time slot for the service."
+                                desc: "Select your preferred date and time slot for the service.",
                               },
                               {
-                                icon: <ClockCircleOutlined className="text-3xl text-green-600" />,
+                                icon: (
+                                  <ClockCircleOutlined className="text-3xl text-green-600" />
+                                ),
                                 title: "2. Expert Service",
-                                desc: "Our certified professional will arrive at your location on time."
+                                desc: "Our certified professional will arrive at your location on time.",
                               },
                               {
-                                icon: <CheckCircleOutlined className="text-3xl text-purple-600" />,
+                                icon: (
+                                  <CheckCircleOutlined className="text-3xl text-purple-600" />
+                                ),
                                 title: "3. Job Completion",
-                                desc: "We ensure 100% satisfaction with our quality service."
-                              }
+                                desc: "We ensure 100% satisfaction with our quality service.",
+                              },
                             ].map((step, index) => (
-                              <motion.div 
+                              <motion.div
                                 key={index}
                                 className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
                                 whileHover={{ y: -5 }}
@@ -419,8 +444,12 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                                 <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mb-4">
                                   {step.icon}
                                 </div>
-                                <h4 className="font-semibold text-lg mb-2 text-gray-800">{step.title}</h4>
-                                <p className="text-gray-600 text-sm">{step.desc}</p>
+                                <h4 className="font-semibold text-lg mb-2 text-gray-800">
+                                  {step.title}
+                                </h4>
+                                <p className="text-gray-600 text-sm">
+                                  {step.desc}
+                                </p>
                               </motion.div>
                             ))}
                           </div>
@@ -429,25 +458,32 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                     ),
                   },
                   {
-                    key: 'details',
-                    label: 'Details',
+                    key: "details",
+                    label: "Details",
                     children: (
                       <div className="p-6">
-                        <h2 className="text-2xl font-bold mb-6 text-gray-800">Service Details</h2>
+                        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+                          Service Details
+                        </h2>
                         <div className="prose max-w-none">
                           <p className="text-gray-700 mb-6">
-                            Our service is designed to provide comprehensive solutions with the highest standards of quality and reliability. 
-                            Our certified professionals are trained to handle all aspects of the service with precision and care.
+                            Our service is designed to provide comprehensive
+                            solutions with the highest standards of quality and
+                            reliability. Our certified professionals are trained
+                            to handle all aspects of the service with precision
+                            and care.
                           </p>
-                          
-                          <h3 className="text-xl font-semibold mb-4 text-gray-800">Service Inclusions</h3>
+
+                          <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                            Service Inclusions
+                          </h3>
                           <ul className="space-y-2 mb-6">
                             {[
                               "Detailed assessment and consultation",
                               "Professional service execution",
                               "Quality check and testing",
                               "Cleanup after service completion",
-                              "Service warranty coverage"
+                              "Service warranty coverage",
                             ].map((item, i) => (
                               <li key={i} className="flex items-start">
                                 <span className="text-green-500 mr-2">✓</span>
@@ -456,24 +492,38 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                             ))}
                           </ul>
 
-                          <h3 className="text-xl font-semibold mb-4 text-gray-800">What to Expect</h3>
+                          <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                            What to Expect
+                          </h3>
                           <div className="space-y-4">
                             <div className="p-4 bg-blue-50 rounded-lg">
-                              <h4 className="font-medium text-blue-800 mb-2">Before Service</h4>
+                              <h4 className="font-medium text-blue-800 mb-2">
+                                Before Service
+                              </h4>
                               <p className="text-gray-700">
-                                Our professional will contact you to confirm the appointment and discuss any specific requirements.
+                                Our professional will contact you to confirm the
+                                appointment and discuss any specific
+                                requirements.
                               </p>
                             </div>
                             <div className="p-4 bg-green-50 rounded-lg">
-                              <h4 className="font-medium text-green-800 mb-2">During Service</h4>
+                              <h4 className="font-medium text-green-800 mb-2">
+                                During Service
+                              </h4>
                               <p className="text-gray-700">
-                                The technician will arrive on time, perform the service with attention to detail, and keep you informed throughout the process.
+                                The technician will arrive on time, perform the
+                                service with attention to detail, and keep you
+                                informed throughout the process.
                               </p>
                             </div>
                             <div className="p-4 bg-purple-50 rounded-lg">
-                              <h4 className="font-medium text-purple-800 mb-2">After Service</h4>
+                              <h4 className="font-medium text-purple-800 mb-2">
+                                After Service
+                              </h4>
                               <p className="text-gray-700">
-                                You&apos;ll receive a detailed service report, and our team will follow up to ensure your complete satisfaction.
+                                You&apos;ll receive a detailed service report,
+                                and our team will follow up to ensure your
+                                complete satisfaction.
                               </p>
                             </div>
                           </div>
@@ -482,31 +532,43 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                     ),
                   },
                   {
-                    key: 'faq',
-                    label: 'FAQ',
+                    key: "faq",
+                    label: "FAQ",
                     children: (
                       <div className="p-6">
-                        <h2 className="text-2xl font-bold mb-6 text-gray-800">Frequently Asked Questions</h2>
+                        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+                          Frequently Asked Questions
+                        </h2>
                         <ServiceFAQ />
                       </div>
                     ),
                   },
                   {
-                    key: 'reviews',
+                    key: "reviews",
                     label: `Reviews (${reviews?.length || 0})`,
                     children: (
                       <div className="p-6">
                         <div className="flex justify-between items-center mb-6">
-                          <h2 className="text-2xl font-bold text-gray-800">Customer Reviews</h2>
+                          <h2 className="text-2xl font-bold text-gray-800">
+                            Customer Reviews
+                          </h2>
                           <div className="flex items-center">
                             <div className="flex items-center mr-4">
                               <StarFilled className="text-yellow-400 text-2xl mr-1" />
-                              <span className="text-xl font-bold">{serviceInfo?.rating}</span>
-                              <span className="text-gray-500 ml-1">({reviews?.length || 0} reviews)</span>
+                              <span className="text-xl font-bold">
+                                {serviceInfo?.rating}
+                              </span>
+                              <span className="text-gray-500 ml-1">
+                                ({reviews?.length || 0} reviews)
+                              </span>
                             </div>
-                            <Button 
-                              type="primary" 
-                              onClick={() => document.getElementById('write-review')?.scrollIntoView({ behavior: 'smooth' })}
+                            <Button
+                              type="primary"
+                              onClick={() =>
+                                document
+                                  .getElementById("write-review")
+                                  ?.scrollIntoView({ behavior: "smooth" })
+                              }
                             >
                               Write a Review
                             </Button>
@@ -516,7 +578,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                         {reviews?.length > 0 ? (
                           <div className="space-y-6">
                             {reviews.map((review: any, index: number) => (
-                              <motion.div 
+                              <motion.div
                                 key={review.id || index}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -528,28 +590,48 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                           </div>
                         ) : (
                           <div className="text-center py-12 bg-gray-50 rounded-lg">
-                            <p className="text-gray-500">No reviews yet. Be the first to review this service!</p>
+                            <p className="text-gray-500">
+                              No reviews yet. Be the first to review this
+                              service!
+                            </p>
                           </div>
                         )}
 
                         {/* Write Review Section */}
-                        <div id="write-review" className="mt-12 pt-8 border-t border-gray-200">
-                          <h3 className="text-xl font-semibold mb-4">Write a Review</h3>
-                          <form onSubmit={handlePostReview} className="space-y-4">
+                        <div
+                          id="write-review"
+                          className="mt-12 pt-8 border-t border-gray-200"
+                        >
+                          <h3 className="text-xl font-semibold mb-4">
+                            Write a Review
+                          </h3>
+                          <form
+                            onSubmit={handlePostReview}
+                            className="space-y-4"
+                          >
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Your Rating
                               </label>
-                              <Rate 
-                                tooltips={desc} 
-                                onChange={setRating} 
-                                value={rating} 
+                              <Rate
+                                tooltips={desc}
+                                onChange={setRating}
+                                value={rating}
                                 className="text-2xl"
                               />
-                              {rating ? <span className="ml-2 text-gray-600">{desc[rating - 1]}</span> : ''}
+                              {rating ? (
+                                <span className="ml-2 text-gray-600">
+                                  {desc[rating - 1]}
+                                </span>
+                              ) : (
+                                ""
+                              )}
                             </div>
                             <div>
-                              <label htmlFor="review" className="block text-sm font-medium text-gray-700 mb-1">
+                              <label
+                                htmlFor="review"
+                                className="block text-sm font-medium text-gray-700 mb-1"
+                              >
                                 Your Review
                               </label>
                               <TextArea
@@ -561,8 +643,8 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                                 required
                               />
                             </div>
-                            <Button 
-                              type="primary" 
+                            <Button
+                              type="primary"
                               htmlType="submit"
                               className="bg-blue-600 hover:bg-blue-700"
                             >
@@ -579,29 +661,33 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
           </motion.article>
 
           {/* Sidebar */}
-          <motion.aside 
+          <motion.aside
             className="lg:w-96 flex-shrink-0 space-y-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            style={{ position: 'sticky', top: '6rem', alignSelf: 'flex-start' }}
+            style={{ position: "sticky", top: "6rem", alignSelf: "flex-start" }}
           >
             {/* Booking Card */}
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden sticky top-24">
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-4">Book This Service</h3>
+                <h3 className="text-xl font-bold text-gray-800 mb-4">
+                  Book This Service
+                </h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Starting from</span>
                     <div>
-                      <span className="text-3xl font-bold text-gray-900">${serviceInfo?.price}</span>
+                      <span className="text-3xl font-bold text-gray-900">
+                        ${serviceInfo?.price}
+                      </span>
                       <span className="text-gray-500 ml-1">+ materials</span>
                     </div>
                   </div>
-                  
-                  <Button 
-                    type="primary" 
-                    size="large" 
+
+                  <Button
+                    type="primary"
+                    size="large"
                     block
                     icon={<ShoppingCartOutlined />}
                     onClick={handleAddToCart}
@@ -609,78 +695,73 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                   >
                     Add to Cart
                   </Button>
-                  
+
                   <div className="text-center text-sm text-gray-500">
                     No payment required at booking
                   </div>
-                  
+
                   <div className="pt-4 border-t border-gray-100">
-                    <h4 className="font-medium text-gray-700 mb-3">Service Highlights</h4>
+                    <h4 className="font-medium text-gray-700 mb-3">
+                      Service Highlights
+                    </h4>
                     <ul className="space-y-2">
                       {[
                         "✓ Professional & Certified Experts",
                         "✓ 100% Satisfaction Guaranteed",
                         "✓ Transparent Pricing",
-                        "✓ Same Day Service Available"
+                        "✓ Same Day Service Available",
                       ].map((item, i) => (
-                        <li key={i} className="flex items-center text-sm text-gray-600">
+                        <li
+                          key={i}
+                          className="flex items-center text-sm text-gray-600"
+                        >
                           <span className="text-green-500 mr-2">✓</span>
                           {item}
                         </li>
                       ))}
                     </ul>
                   </div>
-                  
+
                   <div className="pt-4 border-t border-gray-100">
-                    <h4 className="font-medium text-gray-700 mb-3">Need Help?</h4>
+                    <h4 className="font-medium text-gray-700 mb-3">
+                      Need Help?
+                    </h4>
                     <p className="text-sm text-gray-600 mb-3">
-                      Our customer support team is available 24/7 to assist you with any questions.
+                      Our customer support team is available 24/7 to assist you
+                      with any questions.
                     </p>
-                    <Button type="link" className="p-0 text-blue-600 hover:text-blue-800">
+                    <Button
+                      type="link"
+                      className="p-0 text-blue-600 hover:text-blue-800"
+                    >
                       Contact Support
                     </Button>
                   </div>
                 </div>
               </div>
             </div>
-            
-            {/* Why Choose Us */}
-            <WhyUs />
-            
-            {/* Safety Measures */}
-            <div className="bg-blue-50 rounded-2xl p-6">
-              <h3 className="text-lg font-semibold text-blue-800 mb-3 flex items-center">
-                <SafetyCertificateOutlined className="mr-2" />
-                Safety First
-              </h3>
-              <p className="text-sm text-gray-700 mb-4">
-                Your safety is our top priority. All our service professionals follow strict safety protocols.
-              </p>
-              <ul className="space-y-2">
-                {[
-                  "✓ Temperature checks",
-                  "✓ Masks & gloves",
-                  "✓ Sanitized equipment",
-                  "✓ Contactless service"
-                ].map((item, i) => (
-                  <li key={i} className="text-sm text-gray-700">{item}</li>
-                ))}
-              </ul>
-            </div>
           </motion.aside>
         </div>
       </div>
-      
+
+      {/* Why Choose Us Section */}
+      <div className="mt-16">
+        <WhyUs />
+      </div>
+
       {/* Mobile Bottom Navigation */}
       {isMobile && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40" style={{ zIndex: 1000 }}>
+        <div
+          className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40"
+          style={{ zIndex: 1000 }}
+        >
           <div className="flex justify-between items-center p-3">
             <div>
               <div className="text-sm text-gray-500">Starting from</div>
               <div className="font-bold text-lg">${serviceInfo?.price}</div>
             </div>
-            <Button 
-              type="primary" 
+            <Button
+              type="primary"
               size="large"
               icon={<ShoppingCartOutlined />}
               onClick={handleAddToCart}
@@ -747,8 +828,8 @@ const globalStyles = `
 `;
 
 // Add the styles to the document head
-if (typeof document !== 'undefined') {
-  const style = document.createElement('style');
+if (typeof document !== "undefined") {
+  const style = document.createElement("style");
   style.textContent = globalStyles;
   document.head.appendChild(style);
 }
