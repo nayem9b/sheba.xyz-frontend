@@ -1,31 +1,18 @@
 "use client";
 
-import { Button, Col, Form, Image, Row, Select, message } from "antd";
-
+import { Button, Image, Select, message } from "antd";
 import { setToLocalStorage } from "@/utils/local-storage";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
-import { DatePicker, Space, TimePicker } from "antd";
+import { DatePicker, TimePicker } from "antd";
 import type { DatePickerProps } from "antd";
-import {
-  useGetSingleBookingMutation,
-  useSingleBookingQuery,
-  useUpdateBookingMutation,
-} from "@/redux/api/bookingApi";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-type IDProps = {
-  params: any;
-};
-
-const EditBookingPage = ({ params }: IDProps) => {
+const EditBookingPage = ({ params }: { params: any }) => {
   const router = useRouter();
   const [bookingData, setBookingData] = useState<any>();
   const [status, setStatus] = useState<any>();
-  const [date, setDate] = useState<string>();
-  const [time, setTime] = useState<any>();
-  const [updateBooking] = useUpdateBookingMutation();
   const { id } = params;
 
   useEffect(() => {
@@ -33,14 +20,10 @@ const EditBookingPage = ({ params }: IDProps) => {
       .then((res) => res.json())
       .then((data) => {
         setBookingData(data);
-        console.log(data);
       });
   }, [id]);
 
-  // const {data} = bookingData
-
   const onChange = (time: Dayjs | unknown, timeString: string) => {
-    console.log(time, timeString);
     setToLocalStorage("time", time as string);
   };
 
@@ -49,100 +32,109 @@ const EditBookingPage = ({ params }: IDProps) => {
     dateString: any
   ) => {
     setToLocalStorage("date", dateString as string);
-    console.log(dateString, date);
-  };
-  const sendUpdateBookingData = {
-    status: status || bookingData?.data?.status,
-    time: localStorage.getItem("time") || bookingData?.data?.time,
-    date: localStorage.getItem("date") || bookingData?.data?.date,
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    message.loading("Updating.....");
+    message.loading("Updating booking...");
+    const sendUpdateBookingData = {
+      status: status || bookingData?.data?.status,
+      time: localStorage.getItem("time") || bookingData?.data?.time,
+      date: localStorage.getItem("date") || bookingData?.data?.date,
+    };
+
     try {
-      console.log(sendUpdateBookingData);
-      fetch(`http://localhost:3000/api/v1/bookings/${id}`, {
+      await fetch(`http://localhost:3000/api/v1/bookings/${id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify(sendUpdateBookingData),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          message.success("Updated user booking");
-          router.push("/allbookings");
-        });
-
-      message.success("user booking updated successfully");
+      });
+      message.success("Booking updated successfully!");
+      router.push("/allbookings");
     } catch (err: any) {
-      //   console.error(err.message);
-      message.error(err.message);
+      message.error("Failed to update booking. Please try again.");
     }
   };
 
   const handleChange = (value: string) => {
     setStatus(value);
-    console.log(`${value}`);
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="">
-        <div className="">
-          <Image width={200} src={bookingData?.data?.service?.image} />
-          <h1>Service Name : {bookingData?.data?.service?.name}</h1>
+    <div className="flex flex-col items-center bg-gray-50 min-h-screen py-10">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-3xl">
+        <div className="flex flex-col items-center mb-6">
+          <Image
+            width={200}
+            src={
+              bookingData?.data?.service?.image || "/placeholder-service.jpg"
+            }
+            alt="Service Image"
+            className="rounded-lg shadow-md"
+          />
+          <h1 className="text-2xl font-bold text-gray-800 mt-4">
+            {bookingData?.data?.service?.name}
+          </h1>
         </div>
-        <div className="">
-          <h1 className=" text-blue-500">Edit booking details of </h1>
-          <p className="text-lg">User Name: {bookingData?.data?.name}</p>
-          <p className="text-lg">Email : {bookingData?.data?.email}</p>
-          <p className="text-lg">Contact No : {bookingData?.data?.contactNo}</p>
+
+        <div className="bg-gray-100 p-4 rounded-lg shadow-inner mb-6">
+          <h2 className="text-lg font-semibold text-blue-600 mb-2">
+            Edit Booking Details
+          </h2>
+          <p className="text-gray-700">User Name: {bookingData?.data?.name}</p>
+          <p className="text-gray-700">Email: {bookingData?.data?.email}</p>
+          <p className="text-gray-700">
+            Contact No: {bookingData?.data?.contactNo}
+          </p>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div className="flex ">
-            <div className="grid grid-rows-3  ">
-              <div className="flex justify-evenly">
-                <label className="mr-5">Date</label>
-                <DatePicker
-                  onChange={onDateChange}
-                  defaultValue={bookingData?.data?.date}
-                />
-              </div>
-              <div className="flex justify-evenly mt-10">
-                <label className="mr-5 ">Time</label>
-                <TimePicker
-                  use12Hours
-                  format="h:mm:ss A"
-                  onChange={onChange}
-                  defaultValue={dayjs("12:25:15", "HH:mm:ss")}
-                />
-              </div>
-              <div className="flex justify-evenly mt-10">
-                <label className="mr-6 ">Status</label>
-                <Select
-                  defaultValue="Select"
-                  style={{ width: 120 }}
-                  onChange={handleChange}
-                  options={[
-                    { value: "pending", label: "Pending" },
-                    { value: "accepted", label: "Accept" },
-                    { value: "rejected", label: "Reject" },
-                    { value: "delivered", label: "Delivered" },
-                  ]}
-                />
-              </div>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="w-16  mt-10 flex "
-              >
-                Update
-              </Button>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-4">
+              <label className="w-24 text-gray-700 font-medium">Date</label>
+              <DatePicker
+                onChange={onDateChange}
+                defaultValue={dayjs(bookingData?.data?.date)}
+                className="w-full"
+              />
+            </div>
+
+            <div className="flex items-center gap-4">
+              <label className="w-24 text-gray-700 font-medium">Time</label>
+              <TimePicker
+                use12Hours
+                format="h:mm A"
+                onChange={onChange}
+                defaultValue={dayjs(bookingData?.data?.time, "HH:mm")}
+                className="w-full"
+              />
+            </div>
+
+            <div className="flex items-center gap-4">
+              <label className="w-24 text-gray-700 font-medium">Status</label>
+              <Select
+                defaultValue={bookingData?.data?.status || "Select"}
+                onChange={handleChange}
+                className="w-full"
+                options={[
+                  { value: "pending", label: "Pending" },
+                  { value: "accepted", label: "Accepted" },
+                  { value: "rejected", label: "Rejected" },
+                  { value: "delivered", label: "Delivered" },
+                ]}
+              />
             </div>
           </div>
+
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg shadow-md"
+          >
+            Update Booking
+          </Button>
         </form>
       </div>
     </div>

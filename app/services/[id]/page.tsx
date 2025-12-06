@@ -93,6 +93,8 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
 
       if (!response.ok) throw new Error("Failed to add to cart");
       message.success("Service added to cart!");
+      window.location.href = "/mycart";
+      
     } catch (error) {
       console.error("Error adding to cart:", error);
       message.error("Failed to add to cart");
