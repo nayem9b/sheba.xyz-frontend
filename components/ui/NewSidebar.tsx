@@ -3,38 +3,38 @@
 import { useEffect, useState, useRef } from "react";
 import { Tooltip } from "antd";
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 import { useSession, useUser } from "@clerk/nextjs";
 import Image from "next/image";
-import { 
-  LayoutDashboard, 
-  Users, 
-  Settings, 
-  PlusCircle, 
-  ChevronLeft, 
+import {
+  LayoutDashboard,
+  Users,
+  Settings,
+  PlusCircle,
+  ChevronLeft,
   ChevronRight,
   Package,
   DollarSign,
   Calendar,
   MessageSquare,
-  UserCog
-} from 'lucide-react';
+  UserCog,
+} from "lucide-react";
 
 // Utility function for conditional class names
 function cn(...classes: (string | undefined | boolean)[]): string {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 // Mock function - replace with your actual user role check
 function checkUserRole(session: any): string {
   // This is a placeholder - implement your actual role checking logic here
-  return 'admin'; // Default to admin for now
+  return "admin"; // Default to admin for now
 }
 
 // Sidebar width states
 const sidebarWidths = {
-  collapsed: 'w-20',
-  expanded: 'w-64'
+  collapsed: "w-20",
+  expanded: "w-64",
 };
 
 const Sidebar = () => {
@@ -45,31 +45,36 @@ const Sidebar = () => {
   const [dbUserRole, setDbUserRole] = useState<string>("");
   const [collapsed, setCollapsed] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  
-  const sidebarClass = `h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col overflow-hidden shadow-lg transition-all duration-300 ${collapsed ? sidebarWidths.collapsed : sidebarWidths.expanded}`;
+
+  const sidebarClass = `h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col overflow-hidden shadow-lg transition-all duration-300 ${
+    collapsed ? sidebarWidths.collapsed : sidebarWidths.expanded
+  }`;
 
   // Close sidebar when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
         if (window.innerWidth < 768) {
           setCollapsed(true);
         }
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   useEffect(() => {
     if (user?.id) {
-      fetch(`http://localhost:3000/api/v1/users/${user.id}`)
+      fetch(`http://localhost:8000/api/v1/users/${user.id}`)
         .then((res) => res.json())
         .then((data) => {
-          setDbUserRole(data?.data?.role || '');
+          setDbUserRole(data?.data?.role || "");
         })
         .catch((error) => {
-          console.error('Error fetching user role:', error);
+          console.error("Error fetching user role:", error);
         });
     }
   }, [user?.id]);
@@ -77,63 +82,63 @@ const Sidebar = () => {
   // Navigation items
   const navItems = [
     {
-      title: 'Dashboard',
-      href: '/',
+      title: "Dashboard",
+      href: "/",
       icon: <LayoutDashboard size={20} />,
-      roles: ['admin', 'user', 'super_admin'],
+      roles: ["admin", "user", "super_admin"],
     },
     {
-      title: 'Services',
-      href: '/services',
+      title: "Services",
+      href: "/services",
       icon: <Package size={20} />,
-      roles: ['admin', 'user', 'super_admin'],
+      roles: ["admin", "user", "super_admin"],
     },
     {
-      title: 'Bookings',
-      href: '/bookings',
+      title: "Bookings",
+      href: "/bookings",
       icon: <Calendar size={20} />,
-      roles: ['admin', 'user', 'super_admin'],
+      roles: ["admin", "user", "super_admin"],
     },
     {
-      title: 'Messages',
-      href: '/messages',
+      title: "Messages",
+      href: "/messages",
       icon: <MessageSquare size={20} />,
-      roles: ['admin', 'user', 'super_admin'],
+      roles: ["admin", "user", "super_admin"],
     },
     {
-      title: 'Users',
-      href: '/allusers',
+      title: "Users",
+      href: "/allusers",
       icon: <Users size={20} />,
-      roles: ['admin', 'super_admin'],
+      roles: ["admin", "super_admin"],
     },
     {
-      title: 'Create Content',
-      href: '/createcontent',
+      title: "Create Content",
+      href: "/createcontent",
       icon: <PlusCircle size={20} />,
-      roles: ['admin', 'super_admin'],
+      roles: ["admin", "super_admin"],
     },
     {
-      title: 'Create Category',
-      href: '/createcategory',
+      title: "Create Category",
+      href: "/createcategory",
       icon: <PlusCircle size={20} />,
-      roles: ['admin', 'super_admin'],
+      roles: ["admin", "super_admin"],
     },
     {
-      title: 'Add Service',
-      href: '/addservice',
+      title: "Add Service",
+      href: "/addservice",
       icon: <DollarSign size={20} />,
-      roles: ['admin', 'super_admin'],
+      roles: ["admin", "super_admin"],
     },
     {
-      title: 'Settings',
-      href: '/settings',
+      title: "Settings",
+      href: "/settings",
       icon: <Settings size={20} />,
-      roles: ['admin', 'user', 'super_admin'],
+      roles: ["admin", "user", "super_admin"],
     },
   ];
 
-  const filteredNavItems = navItems.filter(item => 
-    item.roles.some(role => [userRole, dbUserRole].includes(role))
+  const filteredNavItems = navItems.filter((item) =>
+    item.roles.some((role) => [userRole, dbUserRole].includes(role))
   );
 
   return (
@@ -169,8 +174,8 @@ const Sidebar = () => {
               const isActive = pathname === item.href;
               return (
                 <div key={item.href}>
-                  <Tooltip 
-                    title={collapsed ? item.title : ''} 
+                  <Tooltip
+                    title={collapsed ? item.title : ""}
                     placement="right"
                     overlayClassName="ml-2"
                   >
@@ -178,12 +183,17 @@ const Sidebar = () => {
                       <div
                         className={cn(
                           "flex items-center p-3 rounded-lg transition-colors duration-200",
-                          isActive 
+                          isActive
                             ? "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400"
                             : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
                         )}
                       >
-                        <span className={cn("flex-shrink-0", collapsed ? 'mx-auto' : 'mr-3')}>
+                        <span
+                          className={cn(
+                            "flex-shrink-0",
+                            collapsed ? "mx-auto" : "mr-3"
+                          )}
+                        >
                           {item.icon}
                         </span>
                         {!collapsed && (
@@ -206,9 +216,9 @@ const Sidebar = () => {
             <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex-shrink-0 overflow-hidden">
               {user?.imageUrl ? (
                 <div className="relative w-full h-full">
-                  <Image 
-                    src={user.imageUrl} 
-                    alt={user.fullName || 'User'} 
+                  <Image
+                    src={user.imageUrl}
+                    alt={user.fullName || "User"}
                     className="object-cover"
                     fill
                     sizes="40px"
@@ -224,20 +234,20 @@ const Sidebar = () => {
             {!collapsed && (
               <div className="ml-3 overflow-hidden">
                 <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                  {user?.fullName || 'User'}
+                  {user?.fullName || "User"}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                  {dbUserRole || 'User'}
+                  {dbUserRole || "User"}
                 </p>
               </div>
             )}
           </div>
         </div>
       </div>
-      
+
       {/* Overlay for mobile */}
       {!collapsed && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
           onClick={() => setCollapsed(true)}
         />

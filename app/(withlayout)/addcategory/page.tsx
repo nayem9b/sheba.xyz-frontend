@@ -57,7 +57,7 @@ const AddCategorypage = () => {
             image: imgData?.data?.url,
           };
 
-          fetch(`http://localhost:3000/api/v1/categories`, {
+          fetch(`http://localhost:8000/api/v1/categories`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -104,12 +104,19 @@ const AddCategorypage = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 flex items-center justify-center py-10">
       <div className="bg-white/90 shadow-2xl rounded-3xl p-10 max-w-md w-full border border-blue-100">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-blue-600 mb-2 tracking-tight">Create a Category</h1>
-          <p className="text-gray-500 text-sm">Add a new category with a name and image</p>
+          <h1 className="text-3xl font-bold text-blue-600 mb-2 tracking-tight">
+            Create a Category
+          </h1>
+          <p className="text-gray-500 text-sm">
+            Add a new category with a name and image
+          </p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="category_name" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="category_name"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Category Name
             </label>
             <input
@@ -121,7 +128,10 @@ const AddCategorypage = () => {
             />
           </div>
           <div>
-            <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="image"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               Category Image
             </label>
             <input
@@ -131,7 +141,7 @@ const AddCategorypage = () => {
               accept="image/*"
               className="block w-full px-3 py-2 text-sm text-gray-600 bg-white border border-gray-200 rounded-xl file:bg-blue-100 file:text-blue-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full"
               required
-              onChange={e => {
+              onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) {
                   getBase64(file as RcFile, (url) => setImageUrl(url));

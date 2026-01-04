@@ -9,7 +9,7 @@ const ServicesUnderCategoryPage = ({ params }: { params: any }) => {
   const [category, setCategory] = useState();
   const { id } = params;
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/services/category/${id}`)
+    fetch(`http://localhost:8000/api/v1/services/category/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setServicesUnderCategory(data?.data);

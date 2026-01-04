@@ -16,7 +16,7 @@ const EditBookingPage = ({ params }: { params: any }) => {
   const { id } = params;
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/bookings/${id}`)
+    fetch(`http://localhost:8000/api/v1/bookings/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBookingData(data);
@@ -44,7 +44,7 @@ const EditBookingPage = ({ params }: { params: any }) => {
     };
 
     try {
-      await fetch(`http://localhost:3000/api/v1/bookings/${id}`, {
+      await fetch(`http://localhost:8000/api/v1/bookings/${id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

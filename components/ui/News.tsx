@@ -24,7 +24,7 @@ const News = () => {
                 <div className="">
                   <a href="#" title="" className=" aspect-w-4 aspect-h-3">
                     <img
-                      src="https://www.unicef.org/bangladesh/sites/unicef.org.bangladesh/files/styles/press_release_feature/public/Social%20Work%20Campaign.png?itok=7uGQb3wA"
+                      src="https://pathao.com/np/wp-content/uploads/sites/7/2019/09/Pathao-Nepal-Ridesharing-Nepal.jpg"
                       alt=""
                       className="w-full h-60"
                     />

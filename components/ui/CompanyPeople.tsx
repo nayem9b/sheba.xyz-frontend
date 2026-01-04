@@ -19,32 +19,28 @@ const CompanyPeople = () => {
             <div>
               <img
                 className="object-cover mx-auto rounded-lg w-28 h-28"
-                src="https://d1f34ajap1v5tm.cloudfront.net/image/dUhMl-8-mVineeta%20Singh.jpg"
+                src="https://avatars.githubusercontent.com/u/78756747?v=4"
                 alt=""
               />
               <p className="mt-8 text-lg font-semibold leading-tight text-black">
-              Vineeta Singh
+                Md Rezwan Nayem
               </p>
               <p className="mt-1 text-base leading-tight text-gray-600">
                 Founder
               </p>
             </div>
 
-           
-
             <div>
               <img
                 className="object-cover mx-auto rounded-lg w-28 h-28"
-                src="https://d1f34ajap1v5tm.cloudfront.net/image/iM2noqMaEAditi%20Gupta.jpg"
+                src="https://miro.medium.com/v2/resize:fit:572/0*ap7l9S1NbUBZT_Nt.jpg"
                 alt=""
               />
               <p className="mt-8 text-lg font-semibold leading-tight text-black">
-              Aditi Gupta
+                Md Shohag Hossain
               </p>
               <p className="mt-1 text-base leading-tight text-gray-600">CTO</p>
             </div>
-
-           
 
             <div>
               <img
@@ -57,8 +53,6 @@ const CompanyPeople = () => {
               </p>
               <p className="mt-1 text-base leading-tight text-gray-600">CMO</p>
             </div>
-
-           
 
             <div>
               <img
@@ -74,8 +68,6 @@ const CompanyPeople = () => {
               </p>
             </div>
 
-           
-
             <div>
               <img
                 className="object-cover mx-auto rounded-lg w-28 h-28"
@@ -89,7 +81,7 @@ const CompanyPeople = () => {
                 Product Designer
               </p>
             </div>
-           
+
             <div>
               <img
                 className="object-cover mx-auto rounded-lg w-28 h-28"

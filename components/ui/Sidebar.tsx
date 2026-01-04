@@ -20,7 +20,7 @@ const SideBar = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/users/${user?.id}`)
+    fetch(`http://localhost:8000/api/v1/users/${user?.id}`)
       .then((res) => res.json())
       .then((data) => {
         setDbUserRole(data?.data?.role);
@@ -120,9 +120,7 @@ const SideBar = () => {
                     />
                   </svg>
 
-                  <span className="mx-2 text-sm font-medium">
-                    Services
-                  </span>
+                  <span className="mx-2 text-sm font-medium">Services</span>
                 </Link>
                 <Link
                   className={`flex items-center px-3 py-2 mt-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-300 hover:text-gray-700 ${

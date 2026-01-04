@@ -19,7 +19,10 @@ const Homepage = () => {
   });
 
   const features = [
-    { icon: <CheckCircle className="w-5 h-5" />, text: "Verified Professionals" },
+    {
+      icon: <CheckCircle className="w-5 h-5" />,
+      text: "Verified Professionals",
+    },
     { icon: <Clock className="w-5 h-5" />, text: "24/7 Service" },
     { icon: <Star className="w-5 h-5" />, text: "5-Star Rated" },
     { icon: <Zap className="w-5 h-5" />, text: "Quick Response" },
@@ -34,19 +37,19 @@ const Homepage = () => {
     <div className="relative overflow-hidden">
       {/* Hero Section */}
       <div className="relative h-[600px] w-full overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-blue-700/70 backdrop-blur-sm z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/10 to-blue-700/20 backdrop-blur-sm z-10" />
 
         <Image
           src={banner}
           alt="Professional services"
           fill
           priority
-          placeholder="blur"
+          // placeholder="blur"
           className="object-cover w-full h-full"
           sizes="100vw"
           quality={100}
         />
-        
+
         <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-center mt-10">
           <AnimatePresence>
             {isVisible && (
@@ -56,32 +59,37 @@ const Homepage = () => {
                 transition={{
                   duration: 0.8,
                   ease: [0.16, 1, 0.3, 1],
-                  delay: 0.2
+                  delay: 0.2,
                 }}
                 className="text-center lg:text-left max-w-3xl mx-auto lg:mx-0"
               >
-                <Badge className="mb-4 px-4 py-1.5 text-sm font-medium bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20">
+                <Badge className="mb-4 px-4 py-1.5 text-sm font-medium bg-white/10 backdrop-blur-sm text-slate-800 border border-white/20 hover:bg-white/20">
                   Trusted by 10,000+ Customers
                 </Badge>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                  Professional Home Services <span className="text-blue-300">At Your Doorstep</span>
+                  Professional Home Services{" "}
+                  <span className="bg-purple-500 text-white px-2 py-0 rounded-sm">
+                    At Your Doorstep
+                  </span>
                 </h1>
-                <p className="text-lg md:text-xl text-blue-100 mb-8 max-w-2xl mx-auto lg:mx-0">
-                  Book trusted professionals for all your home service needs. Quality service, transparent pricing, and guaranteed satisfaction.
+                <p className="text-lg md:text-xl text-slate-800 mb-8 max-w-2xl mx-auto lg:mx-0 bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/20">
+                  Book trusted professionals for all your home service needs.
+                  Quality service, transparent pricing, and guaranteed
+                  satisfaction.
                 </p>
-                
+
                 <div className="mb-8">
                   <Search />
                 </div>
-                
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-8">
+
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 -mt-8">
                   {features.map((feature, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 + (index * 0.1) }}
-                      className="flex items-center gap-2 text-blue-100 text-sm bg-white/10 px-3 py-1.5 rounded-full backdrop-blur-sm"
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      className="flex items-center gap-2 text-white text-sm bg-white/10 px-3 py-1.5 rounded-full backdrop-blur-sm"
                     >
                       {feature.icon}
                       <span>{feature.text}</span>
@@ -92,7 +100,7 @@ const Homepage = () => {
             )}
           </AnimatePresence>
         </div>
-        
+
         {/* Animated dots background */}
         <div className="absolute inset-0 overflow-hidden z-0">
           {[...Array(20)].map((_, i) => (
@@ -100,8 +108,8 @@ const Homepage = () => {
               key={i}
               className="absolute rounded-full bg-white/10"
               style={{
-                width: Math.random() * 10 + 5 + 'px',
-                height: Math.random() * 10 + 5 + 'px',
+                width: Math.random() * 10 + 5 + "px",
+                height: Math.random() * 10 + 5 + "px",
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
               }}
@@ -113,13 +121,13 @@ const Homepage = () => {
                 duration: 3 + Math.random() * 5,
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: Math.random() * 2
+                delay: Math.random() * 2,
               }}
             />
           ))}
         </div>
       </div>
-      
+
       {/* Categories Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
@@ -130,40 +138,42 @@ const Homepage = () => {
             <p className="text-gray-600 max-w-2xl mx-auto">
               Explore our wide range of professional services for all your needs
             </p>
-            </div>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {categoryData?.data?.slice(0, 12).map((category: any, index: number) => (
-              <motion.div
-              key={category._id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05, duration: 0.4 }}
-              viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ y: -5 }}
-              className="group"
-              >
-              <Link 
-                href={`/services?category=${category.name}`}
-                className="block p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 h-full group-hover:border-blue-100"
-              >
-                <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-3 mx-auto group-hover:bg-blue-100 transition-colors">
-                <Image
-                  src={category.image || '/category-placeholder.svg'}
-                  alt={category.name}
-                  width={56}
-                  height={56}
-                  className="rounded-lg text-blue-600"
-                />
-                </div>
-                <h3 className="font-medium text-gray-900 text-center group-hover:text-blue-600 transition-colors">
-                {category.name}
-                </h3>
-                </Link>
-              </motion.div>
-            ))}
           </div>
-          
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            {categoryData?.data
+              ?.slice(0, 12)
+              .map((category: any, index: number) => (
+                <motion.div
+                  key={category._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05, duration: 0.4 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  whileHover={{ y: -5 }}
+                  className="group"
+                >
+                  <Link
+                    href={`/services?category=${category.name}`}
+                    className="block p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 h-full group-hover:border-blue-100"
+                  >
+                    <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-3 mx-auto group-hover:bg-blue-100 transition-colors">
+                      <Image
+                        src={category.image || "/category-placeholder.svg"}
+                        alt={category.name}
+                        width={56}
+                        height={56}
+                        className="rounded-lg text-blue-600"
+                      />
+                    </div>
+                    <h3 className="font-medium text-gray-900 text-center group-hover:text-blue-600 transition-colors">
+                      {category.name}
+                    </h3>
+                  </Link>
+                </motion.div>
+              ))}
+          </div>
+
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -183,8 +193,8 @@ const Homepage = () => {
           </motion.div>
         </div>
       </section>
-      
-      {/* CTA Section */}
+
+      {/* CTA Section
       <section className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <motion.div
@@ -217,7 +227,7 @@ const Homepage = () => {
             </div>
           </motion.div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

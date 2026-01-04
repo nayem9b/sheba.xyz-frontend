@@ -9,7 +9,7 @@ export function FormWrapper({ title, children }: FormWrapperProps) {
   return (
     <>
       <h2
-        className="text-center text-4xl font-bold text-white mt-10 "
+        className="text-center text-4xl font-bold text-black mt-10 "
         style={{ textAlign: "center", margin: 0, marginBottom: "2rem" }}
       >
         {title}

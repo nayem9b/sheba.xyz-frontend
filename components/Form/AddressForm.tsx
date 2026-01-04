@@ -1,4 +1,5 @@
 import { FormWrapper } from "./FormWrapper";
+import { MapPin } from "lucide-react";
 
 type AddressData = {
   street: string;
@@ -20,39 +21,68 @@ export function AddressForm({
 }: AddressFormProps) {
   return (
     <FormWrapper title="Address">
-      <label className="text-white text-xl ml-10 mt-3">Street</label>
-      <input
-        autoFocus
-        required
-        className="w-80 rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm ml-14"
-        placeholder="Street"
-        type="text"
-        name="street"
-      />
-      <label className="text-white text-xl ml-10 mt-3">City</label>
-      <input
-        required
-        type="text"
-        className="w-80 rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm ml-14"
-        placeholder="City"
-        name="city"
-      />
-      <label className="text-white text-xl ml-10 mt-3">State</label>
-      <input
-        required
-        type="text"
-        className="w-80 rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm ml-14"
-        placeholder="State"
-        name="state"
-      />
-      <label className="text-white text-xl ml-10 mt-3">Zip</label>
-      <input
-        required
-        type="text"
-        className="w-80 rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm ml-14"
-        placeholder="zip"
-        name="zip"
-      />
+      <div className="space-y-6 mt-6 mx-auto">
+        {/* Street Field */}
+        <div className="space-y-2">
+          <label className="block text-black text-sm font-semibold">
+            <MapPin className="w-4 h-4 inline mr-2" />
+            Street Address
+          </label>
+          <input
+            autoFocus
+            required
+            type="text"
+            name="street"
+            value={street}
+            onChange={(e) => updateFields({ street: e.target.value })}
+            className="w-full px-4 py-3 text-gray-900 bg-white rounded-xl border-2 border-white/30 focus:border-white focus:outline-none transition-colors placeholder-gray-300 shadow-sm"
+            placeholder="Example: 123/A, Banani"
+          />
+        </div>
+
+        {/* City Field */}
+        <div className="space-y-2">
+          <label className="block text-Black text-sm font-semibold">Area</label>
+          <input
+            required
+            type="text"
+            name="city"
+            value={city}
+            onChange={(e) => updateFields({ city: e.target.value })}
+            className="w-full px-4 py-3 text-gray-900 bg-white rounded-xl border-2 border-white/30 focus:border-white focus:outline-none transition-colors placeholder-gray-300 shadow-sm"
+            placeholder="Example: Gulshan"
+          />
+        </div>
+
+        {/* State & Zip Row */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label className="block text-black text-sm font-semibold">Building No.</label>
+            <input
+              required
+              type="text"
+              name="state"
+              value={state}
+              onChange={(e) => updateFields({ state: e.target.value })}
+              className="w-full px-4 py-3 text-gray-900 bg-white rounded-xl border-2 border-white/30 focus:border-white focus:outline-none transition-colors placeholder-gray-500 shadow-sm"
+           
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-black text-sm font-semibold">Floor</label>
+            <input
+              required
+              type="text"
+              name="zip"
+              value={zip}
+              onChange={(e) => updateFields({ zip: e.target.value })}
+              className="w-full px-4 py-3 text-gray-900 bg-white rounded-xl border-2 border-white/30 focus:border-white focus:outline-none transition-colors placeholder-gray-500 shadow-sm"
+              
+            />
+          </div>
+        </div>
+      </div>
     </FormWrapper>
   );
 }

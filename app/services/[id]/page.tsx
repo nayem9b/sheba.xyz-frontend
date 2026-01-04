@@ -60,8 +60,8 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
     const fetchServiceData = async () => {
       try {
         const [serviceRes, reviewsRes] = await Promise.all([
-          fetch(`http://localhost:3000/api/v1/services/${id}`),
-          fetch(`http://localhost:3000/api/v1/reviews/${id}`),
+          fetch(`http://localhost:8000/api/v1/services/${id}`),
+          fetch(`http://localhost:8000/api/v1/reviews/${id}`),
         ]);
 
         const serviceData = await serviceRes.json();
@@ -85,7 +85,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/v1/add-to-cart", {
+      const response = await fetch("http://localhost:8000/api/v1/add-to-cart", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: user.id, servicesId: id }),
@@ -94,7 +94,6 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
       if (!response.ok) throw new Error("Failed to add to cart");
       message.success("Service added to cart!");
       window.location.href = "/mycart";
-      
     } catch (error) {
       console.error("Error adding to cart:", error);
       message.error("Failed to add to cart");
@@ -120,7 +119,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/v1/review", {
+      const response = await fetch("http://localhost:8000/api/v1/review", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -139,7 +138,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
 
       // Refresh reviews
       const reviewsRes = await fetch(
-        `http://localhost:3000/api/v1/reviews/${id}`
+        `http://localhost:8000/api/v1/reviews/${id}`
       );
       const reviewsData = await reviewsRes.json();
       setReviews(reviewsData.data || []);
@@ -679,7 +678,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                     <span className="text-gray-600">Starting from</span>
                     <div>
                       <span className="text-3xl font-bold text-gray-900">
-                        ${serviceInfo?.price}
+                        ৳{serviceInfo?.price}
                       </span>
                       <span className="text-gray-500 ml-1">+ materials</span>
                     </div>

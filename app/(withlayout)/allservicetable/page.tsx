@@ -35,9 +35,15 @@ const allServices = () => {
     const price = form?.price?.value;
     const details = form?.details.value;
     const status = form?.status?.value;
-    const image = form.image.files[0];
+
+    if (!imageFile) {
+      message.error("Please select an image");
+      setLoading(false);
+      return;
+    }
+
     const formData = new FormData();
-    formData.append("image", image);
+    formData.append("image", imageFile);
     const url = `https://api.imgbb.com/1/upload?key=4879859cdc7827193ef39d9fcfdd7c52`;
 
     try {
@@ -46,7 +52,8 @@ const allServices = () => {
         body: formData,
       });
       const imgData = await imgRes.json();
-      if (imgData) {
+
+      if (imgData.success && imgData.data?.url) {
         const addServiceSendData = {
           name: name,
           price: parseInt(price),
@@ -57,7 +64,7 @@ const allServices = () => {
           rating: "5",
         };
 
-        const res = await fetch(`http://localhost:3000/api/v1/create-service`, {
+        const res = await fetch(`http://localhost:8000/api/v1/create-service`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -67,26 +74,38 @@ const allServices = () => {
         const data = await res.json();
         message.success("Service added successfully!");
         form.reset();
+        setImageUrl(undefined);
+        setImageFile(null);
+      } else {
+        message.error("Image upload failed. Please try again.");
       }
     } catch (error) {
       message.error("Failed to add service. Please try again.");
+      console.log(error);
     } finally {
       setLoading(false);
     }
   };
 
   const [imageUrl, setImageUrl] = useState<string>();
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 flex items-center justify-center py-10">
       <div className="bg-white/90 shadow-2xl rounded-3xl p-10 max-w-xl w-full border border-blue-100">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-blue-600 mb-2 tracking-tight">Add a Service</h1>
-          <p className="text-gray-500 text-sm">Fill in the details to add a new service</p>
+          <h1 className="text-3xl font-bold text-blue-600 mb-2 tracking-tight">
+            Add a Service
+          </h1>
+          <p className="text-gray-500 text-sm">
+            Fill in the details to add a new service
+          </p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Select Category</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Select Category
+            </label>
             <Select
               className="w-full"
               placeholder="Select Category"
@@ -96,7 +115,9 @@ const allServices = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Select Status</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Select Status
+            </label>
             <select
               name="status"
               className="w-full rounded-xl border border-gray-200 p-3 text-base shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none transition"
@@ -106,7 +127,9 @@ const allServices = () => {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Service Name</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Service Name
+            </label>
             <input
               autoFocus
               required
@@ -117,7 +140,9 @@ const allServices = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Price</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Price
+            </label>
             <input
               required
               type="number"
@@ -127,7 +152,9 @@ const allServices = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Details</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Details
+            </label>
             <textarea
               className="w-full px-3 h-36 text-gray-700 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-200"
               name="details"
@@ -135,7 +162,12 @@ const allServices = () => {
             ></textarea>
           </div>
           <div>
-            <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-2">Image</label>
+            <label
+              htmlFor="image"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Image
+            </label>
             <Upload.Dragger
               name="image"
               accept="image/*"
@@ -143,6 +175,7 @@ const allServices = () => {
                 const reader = new FileReader();
                 reader.onload = () => setImageUrl(reader.result as string);
                 reader.readAsDataURL(file);
+                setImageFile(file);
                 return false;
               }}
               className="rounded-xl border border-gray-200 p-3 text-base shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none transition"
@@ -158,7 +191,9 @@ const allServices = () => {
                   />
                 )}
               </p>
-              <p className="ant-upload-text">Drag & drop an image here, or click to select</p>
+              <p className="ant-upload-text">
+                Drag & drop an image here, or click to select
+              </p>
             </Upload.Dragger>
           </div>
           <div className="flex justify-center mt-8">

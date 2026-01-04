@@ -12,7 +12,7 @@ const FeedbackForm = () => {
       feedback: feedback,
     };
 
-    fetch(`http://localhost:3000/api/v1/my-feedback`, {
+    fetch(`http://localhost:8000/api/v1/my-feedback`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

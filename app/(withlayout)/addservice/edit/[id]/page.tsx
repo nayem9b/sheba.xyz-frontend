@@ -23,7 +23,7 @@ const EditServicepage = ({ params }: { params: any }) => {
     value: category?.id,
   }));
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/services/${id}`)
+    fetch(`http://localhost:8000/api/v1/services/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setServiceData(data?.data);
@@ -62,7 +62,7 @@ const EditServicepage = ({ params }: { params: any }) => {
             rating: "5",
           };
 
-          fetch(`http://localhost:3000/api/v1/services/${id}`, {
+          fetch(`http://localhost:8000/api/v1/services/${id}`, {
             method: "PATCH",
             headers: {
               "content-type": "application/json",
@@ -83,12 +83,18 @@ const EditServicepage = ({ params }: { params: any }) => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 flex items-center justify-center py-10">
       <div className="bg-white/90 shadow-2xl rounded-3xl p-10 max-w-xl w-full border border-blue-100">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-blue-600 mb-2 tracking-tight">Edit Service Details</h1>
-          <p className="text-gray-500 text-sm">Update the details of your service</p>
+          <h1 className="text-3xl font-bold text-blue-600 mb-2 tracking-tight">
+            Edit Service Details
+          </h1>
+          <p className="text-gray-500 text-sm">
+            Update the details of your service
+          </p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Select Category</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Select Category
+            </label>
             <Select
               className="w-full"
               placeholder="Select Category"
@@ -99,7 +105,9 @@ const EditServicepage = ({ params }: { params: any }) => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Service Name</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Service Name
+            </label>
             <input
               autoFocus
               required
@@ -111,7 +119,9 @@ const EditServicepage = ({ params }: { params: any }) => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Price</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Price
+            </label>
             <input
               required
               type="number"
@@ -122,7 +132,9 @@ const EditServicepage = ({ params }: { params: any }) => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Details</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Details
+            </label>
             <textarea
               className="w-full px-3 h-36 text-gray-700 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-200"
               name="details"
@@ -131,14 +143,19 @@ const EditServicepage = ({ params }: { params: any }) => {
             ></textarea>
           </div>
           <div>
-            <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-2">Image</label>
+            <label
+              htmlFor="image"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Image
+            </label>
             <input
               type="file"
               id="image"
               name="image"
               accept="image/*"
               className="block w-full px-3 py-2 text-sm text-gray-600 bg-white border border-gray-200 rounded-xl file:bg-blue-100 file:text-blue-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full"
-              onChange={e => {
+              onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) {
                   const reader = new FileReader();

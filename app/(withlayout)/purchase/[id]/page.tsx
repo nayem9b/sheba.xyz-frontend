@@ -21,12 +21,20 @@ import {
   message,
 } from "antd";
 import { useMultistepForm } from "@/components/Form/useMultistepForm";
-import  UserForm  from "@/components/Form/UserForm";
+import UserForm from "@/components/Form/UserForm";
 import { AddressForm } from "@/components/Form/AddressForm";
 import { AccountForm } from "@/components/Form/AccountForm";
 import { setToLocalStorage } from "@/utils/local-storage";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import {
+  CheckCircle,
+  XCircle,
+  Shield,
+  MapPin,
+  Star,
+  ArrowRight,
+} from "lucide-react";
 
 type FormData = {
   firstName: string;
@@ -79,7 +87,7 @@ const PurchasePage = ({ params }: { params: any }) => {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/services/${id}`)
+    fetch(`http://localhost:8000/api/v1/services/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setServiceData(data);
@@ -143,7 +151,7 @@ const PurchasePage = ({ params }: { params: any }) => {
     };
     console.log(SendPurchaseInfo);
     if (confirmation === "I Agree") {
-      fetch(`http://localhost:3000/api/v1/book`, {
+      fetch(`http://localhost:8000/api/v1/book`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -158,108 +166,170 @@ const PurchasePage = ({ params }: { params: any }) => {
     }
   }
   return (
-    <div className="flex justify-around  mx-14 mt-32">
-      <div className="w-1/2">
-        <img
-          alt="Art"
-          src={serviceInfo?.image}
-          className="h-64  object-cover sm:h-80 lg:h-96 rounded-3xl"
-        />
+    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="container mx-auto px-4 py-12 mt-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+          {/* Service Details Section */}
+          <section className="lg:col-span-2">
+            {/* Service Image */}
+            <article className="mb-10">
+              <div className="mb-8 overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                <img
+                  alt={serviceInfo?.name}
+                  src={serviceInfo?.image}
+                  className="w-full h-80 object-cover"
+                />
+              </div>
 
-        <h3 className="mt-4 text-3xl font-bold text-gray-900">
-          {serviceInfo?.name}
-        </h3>
+              {/* Service Header */}
+              <div className="mb-10">
+                <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                  {serviceInfo?.name}
+                </h1>
 
-        <p className="mt-2 text-3xl text-gray-700">
-          <span className="font-semibold"></span> {serviceInfo?.price} ₹
-        </p>
+                {/* Rating */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="flex items-center gap-2 bg-yellow-50 px-4 py-2 rounded-full">
+                    <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                    <span className="text-lg font-semibold text-gray-800">
+                      4.8
+                    </span>
+                    <span className="text-sm text-gray-600">(256 reviews)</span>
+                  </div>
+                </div>
 
-        <p className="mt-2 text-xl text-gray-700">
-          Location : {serviceInfo?.location}
-        </p>
-        <div>
-          <p className="font-semibold text-xl">Whats included?</p>
-          <ul>
-            <li>Only Service charge</li>
-            <li>7 Days service warrenty</li>
-          </ul>
-          <p className="font-semibold text-xl">Whats Excluded?</p>
-          <ul>
-            <li>Price of materials or parts</li>
-            <li>Transportation cost for carrying new materials/parts</li>
-            <li>Warranty given by manufacturer</li>
-          </ul>
-        </div>
-        {/* Safety */}
-        <div>
-          {/* <Image src={safety} alt="" className="w-72 h-24"></Image> */}
-          <p>
-            We are well-equipped and well-prepared to protect your health and
-            hygiene while serve you. Our preparations include-
-          </p>
-          <div>
-            <ul>
-              <li>Checked Health condition of service specialist</li>
-              <li>Ensuring use of masks, hand sanitisers, gloves, etc</li>
-              <li>Disinfecting equipments before and after the work</li>
-              <li>Maintaining social distancing</li>
-            </ul>
-          </div>
+                {/* Price */}
+                <div className="mb-6 bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-2xl border border-blue-200">
+                  <p className="text-sm text-gray-600 mb-2">Starting from</p>
+                  <p className="text-5xl font-bold text-blue-600">
+                    {serviceInfo?.price} ৳
+                  </p>
+                </div>
+
+                {/* Location */}
+                <div className="flex items-center gap-3 text-lg text-gray-700 mb-8 bg-gray-50 p-4 rounded-xl">
+                  <MapPin className="w-6 h-6 text-blue-600" />
+                  <span>{serviceInfo?.location}</span>
+                </div>
+              </div>
+            </article>
+
+            {/* What's Included */}
+            <section className="mb-8 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-200">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                <CheckCircle className="w-7 h-7 text-green-600" />
+                What's Included?
+              </h2>
+              <ul className="space-y-4">
+                <li className="flex items-center gap-4 text-gray-700 text-lg">
+                  <div className="w-2 h-2 rounded-full bg-green-600"></div>
+                  <span>Only Service charge</span>
+                </li>
+                <li className="flex items-center gap-4 text-gray-700 text-lg">
+                  <div className="w-2 h-2 rounded-full bg-green-600"></div>
+                  <span>7 Days service warranty</span>
+                </li>
+              </ul>
+            </section>
+
+            {/* What's Excluded */}
+            <section className="mb-8 bg-gradient-to-br from-red-50 to-rose-50 rounded-2xl p-8 border border-red-200">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                <XCircle className="w-7 h-7 text-red-600" />
+                What's Excluded?
+              </h2>
+              <ul className="space-y-4">
+                <li className="flex items-center gap-4 text-gray-700 text-lg">
+                  <div className="w-2 h-2 rounded-full bg-red-600"></div>
+                  <span>Price of materials or parts</span>
+                </li>
+                <li className="flex items-center gap-4 text-gray-700 text-lg">
+                  <div className="w-2 h-2 rounded-full bg-red-600"></div>
+                  <span>
+                    Transportation cost for carrying new materials/parts
+                  </span>
+                </li>
+                <li className="flex items-center gap-4 text-gray-700 text-lg">
+                  <div className="w-2 h-2 rounded-full bg-red-600"></div>
+                  <span>Warranty given by manufacturer</span>
+                </li>
+              </ul>
+            </section>
+
+            {/* Safety & Hygiene */}
+            <section className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-200">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                <Shield className="w-7 h-7 text-blue-600" />
+                Safety & Hygiene
+              </h2>
+              <p className="text-gray-700 mb-6 text-base leading-relaxed">
+                We are well-equipped and well-prepared to protect your health
+                and hygiene while serving you. Our preparations include:
+              </p>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-4 text-gray-700">
+                  <ArrowRight className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
+                  <span>Checked Health condition of service specialist</span>
+                </li>
+                <li className="flex items-start gap-4 text-gray-700">
+                  <ArrowRight className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
+                  <span>
+                    Ensuring use of masks, hand sanitisers, gloves, etc
+                  </span>
+                </li>
+                <li className="flex items-start gap-4 text-gray-700">
+                  <ArrowRight className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
+                  <span>Disinfecting equipments before and after the work</span>
+                </li>
+                <li className="flex items-start gap-4 text-gray-700">
+                  <ArrowRight className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
+                  <span>Maintaining social distancing</span>
+                </li>
+              </ul>
+            </section>
+          </section>
+
+          {/* Booking Form Section */}
+          <section className="lg:col-span-1">
+            <div className="sticky top-24 bg-gradient-to-br from-indigo-100  to-purple-200 rounded-2xl shadow-2xl overflow-hidden">
+              <form onSubmit={onSubmit} className="p-8">
+                {/* Progress Indicator */}
+                <div className="text-right mb-6">
+                  <span className="text-slate-800 text-sm font-semibold bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm">
+                    Step {currentStepIndex + 1} of {steps.length}
+                  </span>
+                </div>
+
+                {/* Form Steps */}
+                <div className="mb-8">{step}</div>
+
+                {/* Navigation Buttons */}
+                <div className="flex flex-col gap-3">
+                  {!isFirstStep && (
+                    <Button
+                      onClick={back}
+                      size="large"
+                      className="w-full bg-slate-200 text-slate-700 hover:bg-slate-300 font-semibold border-0"
+                    >
+                      Go Back
+                    </Button>
+                  )}
+
+                  <Button
+                    type="primary"
+                    size="large"
+                    htmlType="submit"
+                    className="w-full bg-blue-600 text-white hover:bg-blue-800 font-semibold rounded-lg border-0"
+                  >
+                    {isLastStep ? "Complete Booking" : "Continue"}
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </section>
         </div>
       </div>
-      <div
-        // style={{
-        //   position: "relative",
-        //   background: "white",
-        //   border: "1px solid black",
-        //   padding: "2rem",
-        //   margin: "1rem",
-        //   borderRadius: ".5rem",
-        //   fontFamily: "Arial",
-        //   maxWidth: "max-content",
-        // }}
-        className="w-full mt-20 h-full ml-52 rounded-xl bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-[#1da89f]  to-purple-700 sticky top-24 "
-      >
-        <form onSubmit={onSubmit}>
-          <div
-            style={{ position: "absolute", top: ".5rem", right: ".5rem" }}
-            className="text-white text-lg font-semibold"
-          >
-            {currentStepIndex + 1} / {steps.length}
-          </div>
-          {step}
-          <div
-            style={{
-              marginTop: "1rem",
-              display: "flex",
-              gap: ".5rem",
-              justifyContent: "flex-end",
-            }}
-          >
-            {!isFirstStep && (
-              <Button
-                type="default"
-                onClick={back}
-                className="mb-10 mr-2 px-6 mt-4"
-              >
-                Back
-              </Button>
-            )}
-
-            <Button
-              type="primary"
-              size="large"
-              htmlType="submit"
-              className="mb-10 mr-32 px-6 mt-3"
-            >
-              {isLastStep ? "Finish" : "Next"}
-            </Button>
-
-            {/* <button type="submit">{isLastStep ? "Finish" : "Next"}</button> */}
-          </div>
-        </form>
-      </div>
-    </div>
+    </main>
   );
 };
 

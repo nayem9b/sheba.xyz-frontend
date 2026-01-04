@@ -62,7 +62,7 @@ export default function Home() {
   console.log(categoryData, services);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/users/${user?.id}`)
+    fetch(`http://localhost:8000/api/v1/users/${user?.id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data.data);
@@ -81,7 +81,7 @@ export default function Home() {
 
   if (isLoaded && isSignedIn) {
     if (!userInfo) {
-      fetch(`http://localhost:3000/api/v1/auth/signup`, {
+      fetch(`http://localhost:8000/api/v1/auth/signup`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

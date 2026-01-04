@@ -35,7 +35,7 @@ const MyBookings = () => {
       userImage: user?.imageUrl,
       userId: user?.id,
     };
-    fetch(`http://localhost:3000/api/v1/review`, {
+    fetch(`http://localhost:8000/api/v1/review`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -51,6 +51,7 @@ const MyBookings = () => {
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
+      <h1 className="text-center mt-20"> My Bookings</h1>
       {myBookings?.data.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {myBookings?.data.map((booking: any) => (
@@ -78,7 +79,7 @@ const MyBookings = () => {
                   <strong>Price:</strong> {booking.service.price} Taka
                 </p>
                 <p className="text-sm text-gray-600">
-                  <strong>Rating:</strong> {booking?.service?.rating} ⭐
+                  <strong>Rating:</strong> {booking?.service?.rating} 
                 </p>
                 <p className="text-sm text-gray-600">
                   <strong>Location:</strong> {booking?.service?.location}

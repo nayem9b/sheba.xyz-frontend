@@ -171,14 +171,14 @@ const UserForm = ({ updateFields, ...formData }: UserFormProps) => {
           </div>
         </div>
 
-        <Button
+        {/* <Button
           type="primary"
           size="large"
           className="w-full h-12 bg-blue-600 hover:bg-blue-700 transition-colors rounded-lg font-medium"
           onClick={() => console.log("Form submitted")}
         >
           Continue
-        </Button>
+        </Button> */}
       </motion.div>
     </div>
   );
