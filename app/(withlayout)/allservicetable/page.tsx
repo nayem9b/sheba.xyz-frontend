@@ -64,13 +64,16 @@ const allServices = () => {
           rating: "5",
         };
 
-        const res = await fetch(`http://localhost:8000/api/v1/create-service`, {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(addServiceSendData),
-        });
+        const res = await fetch(
+          `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/create-service`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(addServiceSendData),
+          }
+        );
         const data = await res.json();
         message.success("Service added successfully!");
         form.reset();

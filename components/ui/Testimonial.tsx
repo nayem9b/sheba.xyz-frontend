@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const Testimonial = () => {
   return (
@@ -19,10 +20,13 @@ const Testimonial = () => {
             <div className="overflow-hidden bg-white rounded-md">
               <div className="px-5 py-6">
                 <div className="flex items-center justify-between">
-                  <img
+                  <Image
                     className="flex-shrink-0 object-cover w-10 h-10 rounded-full"
                     src="https://cdn.rareblocks.xyz/collection/celebration/images/testimonials/7/avatar-1.jpg"
                     alt=""
+                    width={40}
+                    height={40}
+                    unoptimized={true}
                   />
                   <div className="min-w-0 ml-3 mr-auto">
                     <p className="text-base font-semibold text-black truncate">
@@ -30,7 +34,7 @@ const Testimonial = () => {
                     </p>
                     <p className="text-sm text-gray-600 truncate">@darrels</p>
                   </div>
-                  
+
                 </div>
                 <blockquote className="mt-5">
                   <p className="text-base text-gray-800">
@@ -46,10 +50,13 @@ const Testimonial = () => {
             <div className="overflow-hidden bg-white rounded-md">
               <div className="px-5 py-6">
                 <div className="flex items-center justify-between">
-                  <img
+                  <Image
                     className="flex-shrink-0 object-cover w-10 h-10 rounded-full"
                     src="https://cdn.rareblocks.xyz/collection/celebration/images/testimonials/7/avatar-2.jpg"
                     alt=""
+                    width={40}
+                    height={40}
+                    unoptimized={true}
                   />
                   <div className="min-w-0 ml-3 mr-auto">
                     <p className="text-base font-semibold text-black truncate">
@@ -57,11 +64,11 @@ const Testimonial = () => {
                     </p>
                     <p className="text-sm text-gray-600 truncate">@lesslie</p>
                   </div>
-                  
+
                 </div>
                 <blockquote className="mt-5">
                   <p className="text-base text-gray-800">
-                    Simply the best. Better than all the rest. I’d recommend
+                    Simply the best. Better than all the rest. I&#39;d recommend
                     this product to beginners and advanced users.
                     <span className="block text-sky-500">#Celebration</span>
                   </p>
@@ -72,10 +79,13 @@ const Testimonial = () => {
             <div className="overflow-hidden bg-white rounded-md">
               <div className="px-5 py-6">
                 <div className="flex items-center justify-between">
-                  <img
+                  <Image
                     className="flex-shrink-0 object-cover w-10 h-10 rounded-full"
                     src="https://cdn.rareblocks.xyz/collection/celebration/images/testimonials/7/avatar-3.jpg"
                     alt=""
+                    width={40}
+                    height={40}
+                    unoptimized={true}
                   />
                   <div className="min-w-0 ml-3 mr-auto">
                     <p className="text-base font-semibold text-black truncate">
@@ -85,7 +95,7 @@ const Testimonial = () => {
                       @jennywilson
                     </p>
                   </div>
-                  
+
                 </div>
                 <blockquote className="mt-5">
                   <p className="text-base text-gray-800">
@@ -100,10 +110,13 @@ const Testimonial = () => {
             <div className="overflow-hidden bg-white rounded-md">
               <div className="px-5 py-6">
                 <div className="flex items-center justify-between">
-                  <img
+                  <Image
                     className="flex-shrink-0 object-cover w-10 h-10 rounded-full"
                     src="https://cdn.rareblocks.xyz/collection/celebration/images/testimonials/7/avatar-4.jpg"
                     alt=""
+                    width={40}
+                    height={40}
+                    unoptimized={true}
                   />
                   <div className="min-w-0 ml-3 mr-auto">
                     <p className="text-base font-semibold text-black truncate">
@@ -113,11 +126,11 @@ const Testimonial = () => {
                       @kristinwatson2
                     </p>
                   </div>
-                  
+
                 </div>
                 <blockquote className="mt-5">
                   <p className="text-base text-gray-800">
-                    YFinally, I’ve found a template that covers all bases for a
+                    YFinally, I&#39;ve found a template that covers all bases for a
                     bootstrapped startup. We were able to launch in days, not
                     months.
                     <span className="block text-sky-500">#Celebration</span>
@@ -129,10 +142,13 @@ const Testimonial = () => {
             <div className="overflow-hidden bg-white rounded-md">
               <div className="px-5 py-6">
                 <div className="flex items-center justify-between">
-                  <img
+                  <Image
                     className="flex-shrink-0 object-cover w-10 h-10 rounded-full"
                     src="https://cdn.rareblocks.xyz/collection/celebration/images/testimonials/7/avatar-5.jpg"
                     alt=""
+                    width={40}
+                    height={40}
+                    unoptimized={true}
                   />
                   <div className="min-w-0 ml-3 mr-auto">
                     <p className="text-base font-semibold text-black truncate">
@@ -142,7 +158,7 @@ const Testimonial = () => {
                       @jennywilson
                     </p>
                   </div>
-                  
+
                 </div>
                 <blockquote className="mt-5">
                   <p className="text-base text-gray-800">
@@ -157,10 +173,13 @@ const Testimonial = () => {
             <div className="overflow-hidden bg-white rounded-md">
               <div className="px-5 py-6">
                 <div className="flex items-center justify-between">
-                  <img
+                  <Image
                     className="flex-shrink-0 object-cover w-10 h-10 rounded-full"
                     src="https://cdn.rareblocks.xyz/collection/celebration/images/testimonials/7/avatar-6.jpg"
                     alt=""
+                    width={40}
+                    height={40}
+                    unoptimized={true}
                   />
                   <div className="min-w-0 ml-3 mr-auto">
                     <p className="text-base font-semibold text-black truncate">
@@ -168,13 +187,13 @@ const Testimonial = () => {
                     </p>
                     <p className="text-sm text-gray-600 truncate">@darrels</p>
                   </div>
-                  
+
                 </div>
                 <blockquote className="mt-5">
                   <p className="text-base text-gray-800">
-                    With Celebration, it’s quicker with the customer, the
+                    With Celebration, it&#39;s quicker with the customer, the
                     customer is more ensured of getting exactly what they
-                    ordered, and I’m all for the efficiency.
+                    ordered, and I&#39;m all for the efficiency.
                     <span className="block text-sky-500">#dev #tools</span>
                   </p>
                 </blockquote>
@@ -184,10 +203,13 @@ const Testimonial = () => {
             <div className="overflow-hidden bg-white rounded-md">
               <div className="px-5 py-6">
                 <div className="flex items-center justify-between">
-                  <img
+                  <Image
                     className="flex-shrink-0 object-cover w-10 h-10 rounded-full"
                     src="https://cdn.rareblocks.xyz/collection/celebration/images/testimonials/7/avatar-7.jpg"
                     alt=""
+                    width={40}
+                    height={40}
+                    unoptimized={true}
                   />
                   <div className="min-w-0 ml-3 mr-auto">
                     <p className="text-base font-semibold text-black truncate">
@@ -195,7 +217,7 @@ const Testimonial = () => {
                     </p>
                     <p className="text-sm text-gray-600 truncate">@darrels</p>
                   </div>
-                  
+
                 </div>
                 <blockquote className="mt-5">
                   <p className="text-base text-gray-800">
@@ -211,10 +233,13 @@ const Testimonial = () => {
             <div className="overflow-hidden bg-white rounded-md">
               <div className="px-5 py-6">
                 <div className="flex items-center justify-between">
-                  <img
+                  <Image
                     className="flex-shrink-0 object-cover w-10 h-10 rounded-full"
                     src="https://cdn.rareblocks.xyz/collection/celebration/images/testimonials/7/avatar-8.jpg"
                     alt=""
+                    width={40}
+                    height={40}
+                    unoptimized={true}
                   />
                   <div className="min-w-0 ml-3 mr-auto">
                     <p className="text-base font-semibold text-black truncate">
@@ -222,7 +247,7 @@ const Testimonial = () => {
                     </p>
                     <p className="text-sm text-gray-600 truncate">@darrels</p>
                   </div>
-                  
+
                 </div>
                 <blockquote className="mt-5">
                   <p className="text-base text-gray-800">

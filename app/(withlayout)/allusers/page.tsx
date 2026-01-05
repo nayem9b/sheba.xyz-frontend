@@ -57,7 +57,7 @@ const AllUsers = () => {
   // }, [isLoaded, organizationList, router]);
 
   // useEffect(() => {
-  //   fetch(`http://localhost:8000/api/v1/users/db/${fetchFromDB}`)
+  //   fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/users/db/${fetchFromDB}`)
   //     .then((res) => res.json())
   //     .then((data) => {
   //       console.log(data?.data);
@@ -69,16 +69,19 @@ const AllUsers = () => {
   const deleteHandler = async (id: string) => {
     // setFetchFromDB(id);
     message.loading("Deleting.....");
-    fetch(`http://localhost:8000/api/v1/users/db/${id}`)
+    fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/users/db/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data?.data);
         setDeleteUserId(data?.data?.userId);
       });
     try {
-      fetch(`http://localhost:8000/api/v1/users/${deleteUserId}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/users/${deleteUserId}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);

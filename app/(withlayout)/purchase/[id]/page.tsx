@@ -35,6 +35,7 @@ import {
   Star,
   ArrowRight,
 } from "lucide-react";
+import Image from "next/image";
 
 type FormData = {
   firstName: string;
@@ -87,7 +88,7 @@ const PurchasePage = ({ params }: { params: any }) => {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/services/${id}`)
+    fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/services/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setServiceData(data);
@@ -151,7 +152,7 @@ const PurchasePage = ({ params }: { params: any }) => {
     };
     console.log(SendPurchaseInfo);
     if (confirmation === "I Agree") {
-      fetch(`http://localhost:8000/api/v1/book`, {
+      fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/book`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -174,10 +175,13 @@ const PurchasePage = ({ params }: { params: any }) => {
             {/* Service Image */}
             <article className="mb-10">
               <div className="mb-8 overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                <img
-                  alt={serviceInfo?.name}
+                <Image
+                  alt={serviceInfo?.name || ''}
                   src={serviceInfo?.image}
+                  width={600}
+                  height={320}
                   className="w-full h-80 object-cover"
+                  unoptimized={true}
                 />
               </div>
 
@@ -218,7 +222,7 @@ const PurchasePage = ({ params }: { params: any }) => {
             <section className="mb-8 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-200">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
                 <CheckCircle className="w-7 h-7 text-green-600" />
-                What's Included?
+                What&#39;s Included?
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-center gap-4 text-gray-700 text-lg">
@@ -236,7 +240,7 @@ const PurchasePage = ({ params }: { params: any }) => {
             <section className="mb-8 bg-gradient-to-br from-red-50 to-rose-50 rounded-2xl p-8 border border-red-200">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
                 <XCircle className="w-7 h-7 text-red-600" />
-                What's Excluded?
+                What&#39;s Excluded?
               </h2>
               <ul className="space-y-4">
                 <li className="flex items-center gap-4 text-gray-700 text-lg">

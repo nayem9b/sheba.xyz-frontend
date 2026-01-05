@@ -16,7 +16,7 @@ const EditBookingPage = ({ params }: { params: any }) => {
   const { id } = params;
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/bookings/${id}`)
+    fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/bookings/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBookingData(data);
@@ -44,13 +44,16 @@ const EditBookingPage = ({ params }: { params: any }) => {
     };
 
     try {
-      await fetch(`http://localhost:8000/api/v1/bookings/${id}`, {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(sendUpdateBookingData),
-      });
+      await fetch(
+        `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/bookings/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(sendUpdateBookingData),
+        }
+      );
       message.success("Booking updated successfully!");
       router.push("/allbookings");
     } catch (err: any) {

@@ -9,7 +9,7 @@ const ContentsCard = ({ content }: any) => {
   const userRole = checkUserRole(session);
 
   const handleDelete = (id: string) => {
-    fetch(`http://localhost:8000/api/v1/contents/${id}`, {
+    fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/contents/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

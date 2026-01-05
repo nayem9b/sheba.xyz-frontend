@@ -69,7 +69,7 @@ const SearchPage = () => {
 
     // First, try to find an exact match in the services
     const selectedService = options?.find(
-      (option) => option.value.toLowerCase() === value.toLowerCase()
+      (option) => option.value && String(option.value).toLowerCase() === value.toLowerCase()
     );
 
     if (selectedService) {

@@ -91,7 +91,7 @@ const AllCategoryPage = () => {
               </div>
               <h3 className="text-2xl font-semibold text-gray-900 mb-2">No Categories Found</h3>
               <p className="text-gray-600">
-                We couldn't find any categories. Please try again later.
+                We couldn&#39;t find any categories. Please try again later.
               </p>
             </motion.div>
           )}

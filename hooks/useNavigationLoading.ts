@@ -22,11 +22,11 @@ export function useNavigationLoading() {
   // Override router.push to use startTransition
   useEffect(() => {
     const originalPush = router.push;
-    
-    router.push = function (...args: any[]) {
+
+    router.push = function (...args: Parameters<typeof originalPush>) {
       startTransition(() => {
         originalPush.apply(router, args);
       });
-    } as any;
+    };
   }, [router]);
 }

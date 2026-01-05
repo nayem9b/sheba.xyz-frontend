@@ -60,8 +60,12 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
     const fetchServiceData = async () => {
       try {
         const [serviceRes, reviewsRes] = await Promise.all([
-          fetch(`http://localhost:8000/api/v1/services/${id}`),
-          fetch(`http://localhost:8000/api/v1/reviews/${id}`),
+          fetch(
+            `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/services/${id}`
+          ),
+          fetch(
+            `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/reviews/${id}`
+          ),
         ]);
 
         const serviceData = await serviceRes.json();
@@ -85,11 +89,14 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/api/v1/add-to-cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: user.id, servicesId: id }),
-      });
+      const response = await fetch(
+        "https://sheba-xyz-backend-0wsp.onrender.com/api/v1/add-to-cart",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: user.id, servicesId: id }),
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to add to cart");
       message.success("Service added to cart!");
@@ -119,17 +126,20 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/api/v1/review", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          review: reviewText,
-          rating,
-          servicesId: id,
-          userId: user.id,
-          userImage: user.imageUrl,
-        }),
-      });
+      const response = await fetch(
+        "https://sheba-xyz-backend-0wsp.onrender.com/api/v1/review",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            review: reviewText,
+            rating,
+            servicesId: id,
+            userId: user.id,
+            userImage: user.imageUrl,
+          }),
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to post review");
 
@@ -138,7 +148,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
 
       // Refresh reviews
       const reviewsRes = await fetch(
-        `http://localhost:8000/api/v1/reviews/${id}`
+        `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/reviews/${id}`
       );
       const reviewsData = await reviewsRes.json();
       setReviews(reviewsData.data || []);
@@ -665,17 +675,29 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            style={{ position: isMobile ? "static" : "sticky", top: isMobile ? "auto" : "6rem", alignSelf: "flex-start" }}
+            style={{
+              position: isMobile ? "static" : "sticky",
+              top: isMobile ? "auto" : "6rem",
+              alignSelf: "flex-start",
+            }}
           >
             {/* Booking Card */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden" style={{ position: isMobile ? "static" : "sticky", top: isMobile ? "auto" : "6rem" }}>
+            <div
+              className="bg-white rounded-2xl shadow-lg overflow-hidden"
+              style={{
+                position: isMobile ? "static" : "sticky",
+                top: isMobile ? "auto" : "6rem",
+              }}
+            >
               <div className="p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4">
                   Book This Service
                 </h3>
                 <div className="space-y-4">
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
-                    <span className="text-sm sm:text-base text-gray-600">Starting from</span>
+                    <span className="text-sm sm:text-base text-gray-600">
+                      Starting from
+                    </span>
                     <div>
                       <span className="text-2xl sm:text-3xl font-bold text-gray-900">
                         ৳{serviceInfo?.price}
@@ -755,8 +777,12 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
         >
           <div className="flex justify-between items-center gap-2 p-2 sm:p-3">
             <div>
-              <div className="text-xs sm:text-sm text-gray-500">Starting from</div>
-              <div className="font-bold text-base sm:text-lg">৳{serviceInfo?.price}</div>
+              <div className="text-xs sm:text-sm text-gray-500">
+                Starting from
+              </div>
+              <div className="font-bold text-base sm:text-lg">
+                ৳{serviceInfo?.price}
+              </div>
             </div>
             <Button
               type="primary"

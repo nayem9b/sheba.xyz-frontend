@@ -101,7 +101,7 @@ export function AccountForm({
               </p>
               <p className="text-gray-700 text-sm">
                 Your booking details have been reviewed. Click{" "}
-                <span className="font-bold">"Yes, Confirm"</span> to complete
+                <span className="font-bold">&quot;Yes, Confirm&quot;</span> to complete
                 your reservation.
               </p>
             </div>

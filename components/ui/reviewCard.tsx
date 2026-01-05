@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const ReviewCard = ({ review }: any) => {
   return (
@@ -6,10 +7,13 @@ const ReviewCard = ({ review }: any) => {
       <div className="overflow-hidden bg-white rounded-md shadow">
         <div className="px-8 py-12">
           <div className="relative w-24 h-24 mx-auto">
-            <img
+            <Image
               className="relative object-cover w-24 h-24 mx-auto rounded-full"
               src={review?.userImage}
               alt=""
+              width={96}
+              height={96}
+              unoptimized={true}
             />
             <div className="absolute top-0 right-0 flex items-center justify-center bg-blue-600 rounded-full w-7 h-7">
               <svg
@@ -23,7 +27,7 @@ const ReviewCard = ({ review }: any) => {
             </div>
           </div>
           <blockquote className="mt-7">
-            <p className="text-lg text-black">“{review?.review}”</p>
+            <p className="text-lg text-black">&quot;{review?.review}&quot;</p>
           </blockquote>
           <p className="text-base font-semibold tex-tblack mt-9">
             Anonymous User

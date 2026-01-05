@@ -57,7 +57,7 @@ const AddCategorypage = () => {
             image: imgData?.data?.url,
           };
 
-          fetch(`http://localhost:8000/api/v1/categories`, {
+          fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/categories`, {
             method: "POST",
             headers: {
               "content-type": "application/json",

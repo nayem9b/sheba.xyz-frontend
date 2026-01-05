@@ -17,7 +17,9 @@ const ServicesUnderCategoryPage = ({ params }: { params: any }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`http://localhost:8000/api/v1/services/category/${id}`)
+    fetch(
+      `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/services/category/${id}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setServicesUnderCategory(data?.data);
@@ -45,20 +47,33 @@ const ServicesUnderCategoryPage = ({ params }: { params: any }) => {
           >
             {isLoading ? (
               <div className="space-y-4">
-                <Skeleton.Input active size="large" block style={{ height: "50px" }} />
-                <Skeleton.Input active size="small" block style={{ height: "20px", width: "200px", margin: "0 auto" }} />
+                <Skeleton.Input
+                  active
+                  size="large"
+                  block
+                  style={{ height: "50px" }}
+                />
+                <Skeleton.Input
+                  active
+                  size="small"
+                  block
+                  style={{ height: "20px", width: "200px", margin: "0 auto" }}
+                />
               </div>
             ) : (
               <>
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100/50 rounded-full mb-6 backdrop-blur-sm">
                   <Package className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-semibold text-blue-700">{servicesCount} Services Available</span>
+                  <span className="text-sm font-semibold text-blue-700">
+                    {servicesCount} Services Available
+                  </span>
                 </div>
                 <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-4">
                   {category}
                 </h1>
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  Discover top-rated {category} services by verified professionals. Quality guaranteed.
+                  Discover top-rated {category} services by verified
+                  professionals. Quality guaranteed.
                 </p>
                 <div className="w-24 h-1.5 bg-gradient-to-r from-blue-600 to-blue-400 mx-auto mt-6 rounded-full"></div>
               </>
@@ -70,10 +85,18 @@ const ServicesUnderCategoryPage = ({ params }: { params: any }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {[...Array(8)].map((_, i) => (
                 <div key={i} className="rounded-2xl overflow-hidden">
-                  <Skeleton.Image active style={{ width: "100%", height: "280px" }} />
+                  <Skeleton.Image
+                    active
+                    style={{ width: "100%", height: "280px" }}
+                  />
                   <div className="p-4 space-y-3 bg-white">
                     <Skeleton.Input active size="small" block />
-                    <Skeleton.Input active size="small" block style={{ width: "60%" }} />
+                    <Skeleton.Input
+                      active
+                      size="small"
+                      block
+                      style={{ width: "60%" }}
+                    />
                   </div>
                 </div>
               ))}
@@ -105,9 +128,12 @@ const ServicesUnderCategoryPage = ({ params }: { params: any }) => {
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-100 mb-4">
                 <Package className="w-8 h-8 text-slate-400" />
               </div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-2">No Services Found</h3>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+                No Services Found
+              </h3>
               <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                We couldn't find any services in this category. Please try browsing other categories.
+                We couldn&#39;t find any services in this category. Please try
+                browsing other categories.
               </p>
               <button
                 onClick={() => router.push("/allcategories")}

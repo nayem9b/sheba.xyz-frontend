@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const ServiceHomeCard = ({ service }: any) => {
   return (
@@ -10,10 +11,13 @@ const ServiceHomeCard = ({ service }: any) => {
           className="relative w-full overflow-hidden bg-gray-100"
           style={{ aspectRatio: "1" }}
         >
-          <img
-            alt={service?.name}
+          <Image
+            alt={service?.name || ''}
             src={service?.image}
+            width={300}
+            height={300}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+            unoptimized={true}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>

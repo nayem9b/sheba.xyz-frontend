@@ -12,7 +12,7 @@ const FeedbackForm = () => {
       feedback: feedback,
     };
 
-    fetch(`http://localhost:8000/api/v1/my-feedback`, {
+    fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/my-feedback`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

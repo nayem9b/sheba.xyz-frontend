@@ -105,7 +105,7 @@ const AllBookingsPage = () => {
   ];
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/bookings`)
+    fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/bookings`)
       .then((res) => res.json())
       .then((data) => {
         setAllBookings(data?.data);

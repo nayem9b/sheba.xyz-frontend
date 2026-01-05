@@ -19,7 +19,7 @@ const EditUserPage = ({ params }: IDProps) => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/users/db/${id}`)
+    fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/users/db/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -33,13 +33,16 @@ const EditUserPage = ({ params }: IDProps) => {
     const updatedInfo = {
       role: role,
     };
-    fetch(`http://localhost:8000/api/v1/users/${userData?.userId}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updatedInfo),
-    })
+    fetch(
+      `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/users/${userData?.userId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updatedInfo),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

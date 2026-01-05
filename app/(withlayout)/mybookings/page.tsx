@@ -35,7 +35,7 @@ const MyBookings = () => {
       userImage: user?.imageUrl,
       userId: user?.id,
     };
-    fetch(`http://localhost:8000/api/v1/review`, {
+    fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/review`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -79,7 +79,7 @@ const MyBookings = () => {
                   <strong>Price:</strong> {booking.service.price} Taka
                 </p>
                 <p className="text-sm text-gray-600">
-                  <strong>Rating:</strong> {booking?.service?.rating} 
+                  <strong>Rating:</strong> {booking?.service?.rating}
                 </p>
                 <p className="text-sm text-gray-600">
                   <strong>Location:</strong> {booking?.service?.location}

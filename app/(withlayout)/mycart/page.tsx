@@ -10,11 +10,7 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { useUser } from "@clerk/nextjs";
-import {
-  Button,
-  message,
-  Popconfirm,
-} from "antd";
+import { Button, message, Popconfirm } from "antd";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -27,7 +23,9 @@ const MyCart = () => {
   const [CartItems, setCartItems] = useState<any>();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/v1/mycart/${user?.id}`)
+    fetch(
+      `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/mycart/${user?.id}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setCartItems(data?.data);
@@ -106,7 +104,9 @@ const MyCart = () => {
                       {/* Image */}
                       <div className="sm:w-32 h-32 relative flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
                         <Image
-                          src={item?.service?.image || "/placeholder-service.jpg"}
+                          src={
+                            item?.service?.image || "/placeholder-service.jpg"
+                          }
                           alt={item?.service?.name}
                           fill
                           className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -150,14 +150,16 @@ const MyCart = () => {
                           {/* Location */}
                           <div className="flex items-center gap-1 text-gray-600 text-sm">
                             <MapPin className="w-4 h-4 text-gray-400" />
-                            {item?.service?.location || "Location not specified"}
+                            {item?.service?.location ||
+                              "Location not specified"}
                           </div>
                         </div>
 
                         {/* Footer - Date & Actions */}
                         <div className="flex items-center justify-between gap-2 mt-4 pt-4 border-t border-gray-100">
                           <span className="text-xs text-gray-500">
-                            Added {item?.createdAt
+                            Added{" "}
+                            {item?.createdAt
                               ? new Date(item.createdAt).toLocaleDateString()
                               : "—"}
                           </span>
@@ -188,7 +190,9 @@ const MyCart = () => {
                           <span className="text-2xl sm:text-3xl font-bold text-blue-600">
                             ৳{parseFloat(item?.service?.price || 0).toFixed(2)}
                           </span>
-                          <p className="text-xs text-gray-500 mt-1">per booking</p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            per booking
+                          </p>
                         </div>
                         <Link
                           href={`/purchase/${item?.service?.id}`}
@@ -247,7 +251,9 @@ const MyCart = () => {
                 {/* Total */}
                 <div>
                   <div className="flex justify-between mb-4">
-                    <span className="text-lg font-bold text-gray-900">Total</span>
+                    <span className="text-lg font-bold text-gray-900">
+                      Total
+                    </span>
                     <span className="text-2xl font-bold text-blue-600">
                       ৳{total.toFixed(2)}
                     </span>
@@ -270,7 +276,8 @@ const MyCart = () => {
                 {/* Info Box */}
                 <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
                   <p className="text-xs text-blue-700">
-                    💡 <span className="font-semibold">Tip:</span> Each service can be booked separately with different dates and times.
+                    💡 <span className="font-semibold">Tip:</span> Each service
+                    can be booked separately with different dates and times.
                   </p>
                 </div>
               </div>
