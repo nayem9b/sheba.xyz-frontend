@@ -66,11 +66,8 @@ const Homepage = () => {
                 <Badge className="mb-4 px-4 py-1.5 text-sm font-medium bg-white/10 backdrop-blur-sm text-slate-800 border border-white/20 hover:bg-white/20">
                   Trusted by 10,000+ Customers
                 </Badge>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                  Professional Home Services{" "}
-                  <span className="bg-purple-500 text-white px-2 py-0 rounded-sm">
-                    At Your Doorstep
-                  </span>
+                <h1 className="text-7xl md:text-5xl lg:text-7xl font-bold text-white leading-tight mb-6">
+                  Professional Home Services
                 </h1>
                 <p className="text-lg md:text-xl text-slate-800 mb-8 max-w-2xl mx-auto lg:mx-0 bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/20">
                   Book trusted professionals for all your home service needs.
@@ -82,7 +79,7 @@ const Homepage = () => {
                   <Search />
                 </div>
 
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 -mt-8">
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 -mt-7">
                   {features.map((feature, index) => (
                     <motion.div
                       key={index}

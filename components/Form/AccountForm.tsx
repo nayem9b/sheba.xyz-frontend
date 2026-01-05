@@ -36,14 +36,14 @@ export function AccountForm({
 
   return (
     <FormWrapper title="Confirmation">
-      <div className="space-y-4 mt-6 mx-10">
+      <div className="space-y-5 mt-8 w-full">
         <legend className="sr-only">Order Confirmation</legend>
 
         {/* Information Box */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+        <div className="bg-white rounded-xl p-5 border-0">
           <div className="flex gap-3">
-            <CheckCircle className="w-5 h-5 text-blue-300 flex-shrink-0 mt-0.5" />
-            <p className="text-black text-sm leading-relaxed">
+            <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+            <p className="text-gray-900 text-sm leading-relaxed font-medium">
               Review your details above. Accept the terms to proceed with your
               reservation.
             </p>
@@ -63,11 +63,11 @@ export function AccountForm({
               value="I Agree"
               checked={isConfirmed}
               onChange={(e) => setIsConfirmed(e.target.checked)}
-              className="w-5 h-5 rounded border-2 border-white/40 checked:border-white checked:bg-blue-500 cursor-pointer transition-colors flex-shrink-0"
+              className="w-5 h-5 rounded border-2 border-gray-300 checked:border-blue-600 checked:bg-blue-600 cursor-pointer transition-all flex-shrink-0"
               required
               aria-label="Accept terms and conditions"
             />
-            <span className="text-black text-sm">
+            <span className="text-gray-900 text-sm">
               I agree to the{" "}
               <span className="font-semibold">terms and conditions</span>
             </span>
@@ -77,7 +77,7 @@ export function AccountForm({
             type="button"
             onClick={showModal}
             disabled={!isConfirmed}
-            className="px-6 py-2.5 text-sm font-semibold bg-white text-blue-600 hover:bg-blue-50 disabled:bg-white/40 disabled:text-black/50 disabled:cursor-not-allowed rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex-shrink-0 whitespace-nowrap"
+            className="px-6 py-3 text-sm font-semibold bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl transition-all duration-200 flex-shrink-0 whitespace-nowrap shadow-sm hover:shadow-md"
           >
             {isConfirmed ? "Confirm & Book" : "Accept to Continue"}
           </button>
@@ -95,8 +95,8 @@ export function AccountForm({
           okButtonProps={{ className: "bg-blue-600 hover:bg-blue-700" }}
         >
           <div className="space-y-4 py-4">
-            <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
-              <p className="text-gray-800 font-semibold mb-2">
+            <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-600">
+              <p className="text-gray-900 font-semibold mb-2">
                 Final Confirmation
               </p>
               <p className="text-gray-700 text-sm">

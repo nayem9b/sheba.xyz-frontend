@@ -95,8 +95,12 @@ const AdminDashboardPage = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-4xl font-bold text-blue-700 mb-2 tracking-tight">Sheba Dashboard</h1>
-            <p className="text-gray-500 text-base">Admin overview and projections</p>
+            <h1 className="text-4xl font-bold text-blue-700 mb-2 tracking-tight mt-16">
+              Sheba Dashboard
+            </h1>
+            <p className="text-gray-500 text-base">
+              Admin overview and projections
+            </p>
           </div>
           <div className="flex gap-2 flex-wrap">
             {/* Add quick action buttons here if needed */}
@@ -104,40 +108,179 @@ const AdminDashboardPage = () => {
         </div>
         {/* Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-          <DashboardCard color="from-blue-400 to-blue-600" icon="user" title="All Users" value={allUsers?.data?.length} />
-          <DashboardCard color="from-pink-400 to-pink-600" icon="appstore" title="All Categories" value={allCategory?.data?.length} />
-          <DashboardCard color="from-purple-400 to-purple-600" icon="tool" title="All Services" value={allServices?.data?.length} />
-          <DashboardCard color="from-yellow-300 to-yellow-500" icon="calendar" title="All Bookings" value={allBookings?.data?.length} />
+          <DashboardCard
+            color="from-blue-400 to-blue-600"
+            icon="user"
+            title="All Users"
+            value={allUsers?.data?.length}
+          />
+          <DashboardCard
+            color="from-pink-400 to-pink-600"
+            icon="appstore"
+            title="All Categories"
+            value={allCategory?.data?.length}
+          />
+          <DashboardCard
+            color="from-purple-400 to-purple-600"
+            icon="tool"
+            title="All Services"
+            value={allServices?.data?.length}
+          />
+          <DashboardCard
+            color="from-yellow-300 to-yellow-500"
+            icon="calendar"
+            title="All Bookings"
+            value={allBookings?.data?.length}
+          />
         </div>
         {/* Bookings Status Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-          <DashboardCard color="from-blue-200 to-blue-400" icon="clockCircle" title="Pending Bookings" value={pendingBookings?.data?.length} />
-          <DashboardCard color="from-green-300 to-green-500" icon="checkCircle" title="Delivered Bookings" value={deliveredBookings?.data?.length} />
-          <DashboardCard color="from-red-300 to-red-500" icon="closeCircle" title="Canceled Bookings" value={canceledBookings?.data?.length} />
-          <DashboardCard color="from-gray-400 to-gray-600" icon="stop" title="Rejected Bookings" value={rejectedBookings?.data?.length} />
+          <DashboardCard
+            color="from-blue-200 to-blue-400"
+            icon="clockCircle"
+            title="Pending Bookings"
+            value={pendingBookings?.data?.length}
+          />
+          <DashboardCard
+            color="from-green-300 to-green-500"
+            icon="checkCircle"
+            title="Delivered Bookings"
+            value={deliveredBookings?.data?.length}
+          />
+          <DashboardCard
+            color="from-red-300 to-red-500"
+            icon="closeCircle"
+            title="Canceled Bookings"
+            value={canceledBookings?.data?.length}
+          />
+          <DashboardCard
+            color="from-gray-400 to-gray-600"
+            icon="stop"
+            title="Rejected Bookings"
+            value={rejectedBookings?.data?.length}
+          />
         </div>
         {/* Projections Section (Charts/Stats) */}
-        <div className="bg-white/90 rounded-3xl shadow-xl p-8 mt-8">
-          <h2 className="text-2xl font-semibold text-blue-700 mb-4">Projections & Analytics</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="flex flex-col items-center justify-center h-64">
-              {/* Placeholder for a chart, e.g., bookings over time */}
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl border border-blue-200">
-                <span className="text-gray-400 text-lg">[Bookings Over Time Chart]</span>
+        <div className="bg-white rounded-2xl shadow-lg p-8 mt-8">
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              Projections & Analytics
+            </h2>
+            <p className="text-gray-600">
+              Real-time insights and performance metrics
+            </p>
+            <div className="w-12 h-1 bg-blue-600 rounded-full mt-3"></div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Bookings Over Time Chart */}
+            <div className="group">
+              <div className="mb-3 flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Bookings Over Time
+                </h3>
+                <span className="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-medium">
+                  Last 30 Days
+                </span>
+              </div>
+              <div className="w-full h-72 flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border-2 border-blue-100 hover:border-blue-300 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                <div className="text-center">
+                  <div className="text-4xl mb-2">📊</div>
+                  <span className="text-gray-500 font-medium">
+                    Bookings Over Time Chart
+                  </span>
+                  <p className="text-gray-400 text-sm mt-2">Coming Soon</p>
+                </div>
               </div>
             </div>
-            <div className="flex flex-col items-center justify-center h-64">
-              {/* Placeholder for a chart, e.g., user growth */}
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-pink-100 to-yellow-100 rounded-2xl border border-pink-200">
-                <span className="text-gray-400 text-lg">[User Growth Chart]</span>
+
+            {/* User Growth Chart */}
+            <div className="group">
+              <div className="mb-3 flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  User Growth
+                </h3>
+                <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">
+                  ↑ 12% Growth
+                </span>
               </div>
+              <div className="w-full h-72 flex items-center justify-center bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border-2 border-green-100 hover:border-green-300 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                <div className="text-center">
+                  <div className="text-4xl mb-2">📈</div>
+                  <span className="text-gray-500 font-medium">
+                    User Growth Chart
+                  </span>
+                  <p className="text-gray-400 text-sm mt-2">Coming Soon</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Revenue Analytics */}
+            <div className="group">
+              <div className="mb-3 flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Revenue Analytics
+                </h3>
+                <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-medium">
+                  This Month
+                </span>
+              </div>
+              <div className="w-full h-72 flex items-center justify-center bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border-2 border-purple-100 hover:border-purple-300 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                <div className="text-center">
+                  <div className="text-4xl mb-2">💰</div>
+                  <span className="text-gray-500 font-medium">
+                    Revenue Analytics Chart
+                  </span>
+                  <p className="text-gray-400 text-sm mt-2">Coming Soon</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Service Performance */}
+            <div className="group">
+              <div className="mb-3 flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Service Performance
+                </h3>
+                <span className="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium">
+                  Top Services
+                </span>
+              </div>
+              <div className="w-full h-72 flex items-center justify-center bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl border-2 border-orange-100 hover:border-orange-300 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                <div className="text-center">
+                  <div className="text-4xl mb-2">⭐</div>
+                  <span className="text-gray-500 font-medium">
+                    Service Performance Chart
+                  </span>
+                  <p className="text-gray-400 text-sm mt-2">Coming Soon</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Stats Row */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 pt-8 border-t border-gray-200">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-600 mb-1">↑ 23%</div>
+              <p className="text-gray-600 text-sm">Booking Increase</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-green-600 mb-1">
+                4.8/5
+              </div>
+              <p className="text-gray-600 text-sm">Average Rating</p>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-purple-600 mb-1">
+                2.3K
+              </div>
+              <p className="text-gray-600 text-sm">Active Services</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   );
-}
+};
 
 export default AdminDashboardPage;

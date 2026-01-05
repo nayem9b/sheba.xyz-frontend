@@ -65,9 +65,45 @@ const SearchPage = () => {
   }, [searchQuery, selectedField, allServices]);
 
   const onSearch = (value: string) => {
-    const selectedService = options?.find((option) => option.value === value);
+    if (!value.trim()) return;
+
+    // First, try to find an exact match in the services
+    const selectedService = options?.find(
+      (option) => option.value.toLowerCase() === value.toLowerCase()
+    );
+
     if (selectedService) {
+      // If exact match found, go to that service
       router.push(`/services/${selectedService.id}`);
+    } else {
+      // If no exact match, search for related services
+      const filteredServices = (allServices?.data || [])
+        .filter((service: any) => {
+          const serviceName = service.name?.toLowerCase() || "";
+          const serviceLocation = service.location?.toLowerCase() || "";
+          const categoryName =
+            typeof service.category === "string"
+              ? service.category.toLowerCase()
+              : service.category?.title?.toLowerCase() ||
+                service.category?.name?.toLowerCase() ||
+                "";
+          const searchTerm = value.toLowerCase();
+
+          return (
+            serviceName.includes(searchTerm) ||
+            serviceLocation.includes(searchTerm) ||
+            categoryName.includes(searchTerm)
+          );
+        })
+        .map((service: any) => service.id);
+
+      if (filteredServices.length > 0) {
+        // If there are related services, redirect to services page with search query
+        router.push(`/allservices?search=${encodeURIComponent(value)}`);
+      } else {
+        // If no services found, still go to services page to show no results
+        router.push(`/allservices?search=${encodeURIComponent(value)}`);
+      }
     }
   };
 
@@ -99,6 +135,10 @@ const SearchPage = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setTimeout(() => setIsFocused(false), 200)}
+              onPressEnter={() => {
+                setIsFocused(false);
+                onSearch(searchQuery);
+              }}
               className="border-0 shadow-none hover:border-0 focus:border-0 focus:shadow-none focus-within:border-transparent"
               style={{ height: "56px" }}
             />

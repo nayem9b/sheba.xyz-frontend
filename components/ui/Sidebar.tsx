@@ -30,7 +30,7 @@ const SideBar = () => {
 
   return (
     <aside className="flex">
-      <div className="h-screen px-5 py-8 overflow-y-auto bg-white border-l border-r sm:w-64 w-60 ">
+      <div className="h-screen px-5 py-8 overflow-y-auto bg-white border-l border-r sm:w-64 w-60 mt-16 ">
         <nav className="mt-4 -mx-3 space-y-6 ">
           <div className="space-y-3 ">
             {(userRole === "admin" || dbUserRole === "admin") && (
