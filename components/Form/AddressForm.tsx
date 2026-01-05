@@ -1,5 +1,5 @@
 import { FormWrapper } from "./FormWrapper";
-import { MapPin } from "lucide-react";
+import { MapPin, Building, Home } from "lucide-react";
 
 type AddressData = {
   street: string;
@@ -21,11 +21,11 @@ export function AddressForm({
 }: AddressFormProps) {
   return (
     <FormWrapper title="Address">
-      <div className="space-y-6 mt-6">
+      <div className="space-y-5 mt-8 w-full">
         {/* Street Field */}
-        <div className="space-y-2">
-          <label className="block text-black text-sm font-semibold">
-            <MapPin className="w-4 h-4 inline mr-2" />
+        <div className="space-y-3 w-full">
+          <label className="block text-gray-900 text-sm font-semibold flex items-center gap-2">
+            <MapPin className="w-5 h-5 text-blue-600" />
             Street Address
           </label>
           <input
@@ -35,29 +35,32 @@ export function AddressForm({
             name="street"
             value={street}
             onChange={(e) => updateFields({ street: e.target.value })}
-            className="w-full px-4 py-3 text-gray-900 bg-white rounded-xl border-2 border-white/30 focus:border-white focus:outline-none transition-colors placeholder-gray-300 shadow-sm"
-            placeholder="Example: 123/A, Banani"
+            className="w-full px-4 py-3.5 text-gray-900 bg-white rounded-xl border-0 focus:outline-none transition-all placeholder-gray-400 font-medium"
+            placeholder="123/A, Banani"
           />
         </div>
 
-        {/* City Field */}
-        <div className="space-y-2">
-          <label className="block text-Black text-sm font-semibold">Area</label>
+        {/* City/Area Field */}
+        <div className="space-y-3 w-full">
+          <label className="block text-gray-900 text-sm font-semibold">
+            Area / City
+          </label>
           <input
             required
             type="text"
             name="city"
             value={city}
             onChange={(e) => updateFields({ city: e.target.value })}
-            className="w-full px-4 py-3 text-gray-900 bg-white rounded-xl border-2 border-white/30 focus:border-white focus:outline-none transition-colors placeholder-gray-300 shadow-sm"
-            placeholder="Example: Gulshan"
+            className="w-full px-4 py-3.5 text-gray-900 bg-white rounded-xl border-0 focus:outline-none transition-all placeholder-gray-400 font-medium"
+            placeholder="Gulshan"
           />
         </div>
 
-        {/* State & Zip Row */}
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <label className="block text-black text-sm font-semibold">
+        {/* Building No. & Floor Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+          <div className="space-y-3 w-full">
+            <label className="block text-gray-900 text-sm font-semibold flex items-center gap-2">
+              <Building className="w-5 h-5 text-blue-600" />
               Building No.
             </label>
             <input
@@ -66,12 +69,14 @@ export function AddressForm({
               name="state"
               value={state}
               onChange={(e) => updateFields({ state: e.target.value })}
-              className="w-full px-4 py-3 text-gray-900 bg-white rounded-xl border-2 border-white/30 focus:border-white focus:outline-none transition-colors placeholder-gray-500 shadow-sm"
+              className="w-full px-4 py-3.5 text-gray-900 bg-white rounded-xl border-0 focus:outline-none transition-all placeholder-gray-400 font-medium"
+              placeholder="E.g., 45"
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="block text-black text-sm font-semibold">
+          <div className="space-y-3 w-full">
+            <label className="block text-gray-900 text-sm font-semibold flex items-center gap-2">
+              <Home className="w-5 h-5 text-blue-600" />
               Floor
             </label>
             <input
@@ -80,7 +85,8 @@ export function AddressForm({
               name="zip"
               value={zip}
               onChange={(e) => updateFields({ zip: e.target.value })}
-              className="w-full px-4 py-3 text-gray-900 bg-white rounded-xl border-2 border-white/30 focus:border-white focus:outline-none transition-colors placeholder-gray-500 shadow-sm"
+              className="w-full px-4 py-3.5 text-gray-900 bg-white rounded-xl border-0 focus:outline-none transition-all placeholder-gray-400 font-medium"
+              placeholder="E.g., 3"
             />
           </div>
         </div>
