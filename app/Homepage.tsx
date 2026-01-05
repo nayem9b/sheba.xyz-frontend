@@ -36,21 +36,21 @@ const Homepage = () => {
   return (
     <div className="relative overflow-hidden">
       {/* Hero Section */}
-      <div className="relative h-[600px] w-full overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/10 to-blue-700/20 backdrop-blur-sm z-10" />
-
+      <div className="relative w-full overflow-hidden">
         <Image
           src={banner}
           alt="Professional services"
-          fill
+          width={1920}
+          height={600}
           priority
-          // placeholder="blur"
-          className="object-cover w-full h-full"
-          sizes="100vw"
+          placeholder="blur"
+          className="w-full h-auto mt-16"
           quality={100}
         />
 
-        <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-center mt-10">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40 z-10" />
+
+        <div className="absolute inset-0 z-20 container mx-auto px-4 h-full flex flex-col justify-end pb-16">
           <AnimatePresence>
             {isVisible && (
               <motion.div
