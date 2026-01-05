@@ -21,7 +21,7 @@ export function AddressForm({
 }: AddressFormProps) {
   return (
     <FormWrapper title="Address">
-      <div className="space-y-6 mt-6 mx-auto">
+      <div className="space-y-6 mt-6">
         {/* Street Field */}
         <div className="space-y-2">
           <label className="block text-black text-sm font-semibold">
@@ -55,9 +55,11 @@ export function AddressForm({
         </div>
 
         {/* State & Zip Row */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-6">
           <div className="space-y-2">
-            <label className="block text-black text-sm font-semibold">Building No.</label>
+            <label className="block text-black text-sm font-semibold">
+              Building No.
+            </label>
             <input
               required
               type="text"
@@ -65,12 +67,13 @@ export function AddressForm({
               value={state}
               onChange={(e) => updateFields({ state: e.target.value })}
               className="w-full px-4 py-3 text-gray-900 bg-white rounded-xl border-2 border-white/30 focus:border-white focus:outline-none transition-colors placeholder-gray-500 shadow-sm"
-           
             />
           </div>
 
           <div className="space-y-2">
-            <label className="block text-black text-sm font-semibold">Floor</label>
+            <label className="block text-black text-sm font-semibold">
+              Floor
+            </label>
             <input
               required
               type="text"
@@ -78,7 +81,6 @@ export function AddressForm({
               value={zip}
               onChange={(e) => updateFields({ zip: e.target.value })}
               className="w-full px-4 py-3 text-gray-900 bg-white rounded-xl border-2 border-white/30 focus:border-white focus:outline-none transition-colors placeholder-gray-500 shadow-sm"
-              
             />
           </div>
         </div>

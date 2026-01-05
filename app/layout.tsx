@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
+import { GlobalLoadingBar } from "@/components/ui/GlobalLoadingBar";
+import NavigationHandler from "@/components/ui/NavigationHandler";
 // import MessengerCustomerChat from "react-messenger-customer-chat";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +25,8 @@ export default function RootLayout({
       <Providers>
         <html lang="en">
           <body className={inter.className}>
+            <NavigationHandler />
+            <GlobalLoadingBar />
             <Navbar />
             {children}
             <Footer />

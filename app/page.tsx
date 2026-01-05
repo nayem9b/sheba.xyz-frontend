@@ -104,12 +104,7 @@ export default function Home() {
       >
         <Image src={emiDetails} alt=""></Image>
       </Modal>
-      <Image
-        onClick={() => setModal2Open(true)}
-        src={emi}
-        alt="emi"
-        className="w-3/5 mx-auto justify-center items-center flex h-28 rounded-xl cursor-pointer"
-      ></Image>
+
       <h1 className="text-center my-20">All Categories</h1>
       <div className="grid lg:grid-cols-8 sm:grid-cols-4 md:grid-cols-6 gap-10 lg:mx-60">
         {categoryData?.data?.map((category: any) => (
@@ -122,12 +117,18 @@ export default function Home() {
           <ServiceHomeCard key={service.name} service={service} />
         ))}
       </div>
-      <h1 className="text-center text-blue-600 my-20">Upcoming Services</h1>
-      <div className="grid grid-cols-4 mx-60 gap-10">
+      {/* <h1 className="text-center text-blue-600 my-20">Upcoming Services</h1> */}
+      {/* <div className="grid grid-cols-4 mx-60 gap-10">
         {upcomingServices?.data?.map((service: any) => (
           <UpcomingServiceCard key={service.name} service={service} />
         ))}
-      </div>
+      </div> */}
+      <Image
+        onClick={() => setModal2Open(true)}
+        src={emi}
+        alt="emi"
+        className="w-3/5 mx-auto justify-center items-center flex h-28 rounded-xl cursor-pointer mt-16"
+      ></Image>
       <Partners />
       <CompanyPeople />
       <Testimonial />

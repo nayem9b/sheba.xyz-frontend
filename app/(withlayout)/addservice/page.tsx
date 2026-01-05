@@ -68,7 +68,7 @@ const AddService = () => {
           All Services
         </h1>
         <div className="flex space-x-4">
-          <Link href="/addservice/create">
+          <Link href="/allservicetable">
             <Button
               type="primary"
               className="bg-blue-600 hover:bg-blue-700 transition-colors duration-200"
@@ -109,7 +109,7 @@ const AddService = () => {
                           {service.location}
                         </p>
                         <p className="text-2xl font-bold text-blue-300">
-                          ${service.price}
+                          {service.price} <span className="text-base">৳</span>
                         </p>
                       </div>
                       <div className="flex space-x-2">
