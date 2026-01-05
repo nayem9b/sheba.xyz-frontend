@@ -50,7 +50,7 @@ const Homepage = () => {
 
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40 z-10" />
 
-        <div className="absolute inset-0 z-20 container mx-auto px-4 h-full flex flex-col justify-end pb-16">
+        <div className="absolute inset-0 z-20 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-end pb-8 sm:pb-12 lg:pb-16">
           <AnimatePresence>
             {isVisible && (
               <motion.div
@@ -63,13 +63,13 @@ const Homepage = () => {
                 }}
                 className="text-center lg:text-left max-w-3xl mx-auto lg:mx-0"
               >
-                <Badge className="mb-4 px-4 py-1.5 text-sm font-medium bg-white/10 backdrop-blur-sm text-slate-800 border border-white/20 hover:bg-white/20">
+                <Badge className="mb-4 px-3 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm font-medium bg-white/10 backdrop-blur-sm text-slate-100 border border-white/20 hover:bg-white/20">
                   Trusted by 10,000+ Customers
                 </Badge>
-                <h1 className="text-7xl md:text-5xl lg:text-7xl font-bold text-white leading-tight mb-6">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-pink-600 leading-tight mb-6">
                   Professional Home Services
                 </h1>
-                <p className="text-lg md:text-xl text-slate-800 mb-8 max-w-2xl mx-auto lg:mx-0 bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/20">
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-zinc-800 mb-8 max-w-2xl mx-auto lg:mx-0 bg-white/10 backdrop-blur-sm px-4 py-3 sm:px-6 sm:py-4 rounded-xl sm:rounded-2xl border border-white/20">
                   Book trusted professionals for all your home service needs.
                   Quality service, transparent pricing, and guaranteed
                   satisfaction.
@@ -79,17 +79,20 @@ const Homepage = () => {
                   <Search />
                 </div>
 
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 -mt-7">
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-3 lg:gap-4 -mt-4 sm:-mt-7">
                   {features.map((feature, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 + index * 0.1 }}
-                      className="flex items-center gap-2 text-white text-sm bg-white/10 px-3 py-1.5 rounded-full backdrop-blur-sm"
+                      className="flex items-center gap-1.5 sm:gap-2 text-white text-xs sm:text-sm bg-white/10 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full backdrop-blur-sm"
                     >
                       {feature.icon}
-                      <span>{feature.text}</span>
+                      <span className="hidden sm:inline">{feature.text}</span>
+                      <span className="sm:hidden text-xs">
+                        {feature.text.split(" ")[0]}
+                      </span>
                     </motion.div>
                   ))}
                 </div>

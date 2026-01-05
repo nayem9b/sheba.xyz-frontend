@@ -212,7 +212,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="relative h-96 w-full overflow-hidden">
+        <div className="relative h-48 sm:h-64 md:h-80 lg:h-96 w-full overflow-hidden">
           <Carousel
             showArrows={true}
             showStatus={false}
@@ -245,12 +245,12 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                 ]}
                 // className="text-gray-200"
               />
-              <div className="flex flex-wrap justify-between items-start mt-2">
-                <div>
-                  <h1 className="text-white font-bold text-3xl md:text-4xl lg:text-5xl drop-shadow-lg mb-2">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-4 mt-2">
+                <div className="flex-1">
+                  <h1 className="text-white font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl drop-shadow-lg mb-2">
                     {serviceInfo?.name} Services
                   </h1>
-                  <div className="flex flex-wrap items-center gap-4 mt-3">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 lg:gap-4 mt-2 sm:mt-3">
                     <div className="flex items-center bg-green-600/90 text-white px-3 py-1 rounded-full text-sm font-medium">
                       <StarFilled className="mr-1 text-yellow-300" />
                       <span className="font-bold">{serviceInfo?.rating}</span>
@@ -303,14 +303,13 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 relative">
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           {/* Main Content */}
           <motion.article
-            className="flex-1 min-w-0 lg:pr-8"
+            className="w-full lg:flex-1 lg:min-w-0 lg:pr-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            style={{ maxWidth: "calc(100% - 384px)" }}
           >
             {/* Service Tabs */}
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
@@ -323,13 +322,13 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                     key: "overview",
                     label: "Overview",
                     children: (
-                      <div className="p-6">
-                        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+                      <div className="p-4 sm:p-6">
+                        <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">
                           Service Overview
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
                           <div>
-                            <h3 className="text-lg font-semibold mb-3 text-gray-700 flex items-center">
+                            <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-gray-700 flex items-center">
                               <CheckCircleOutlined className="text-green-500 mr-2" />
                               What&apos;s Included
                             </h3>
@@ -368,12 +367,12 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                             </ul>
                           </div>
 
-                          <div className="bg-blue-50 p-6 rounded-xl">
-                            <h3 className="text-lg font-semibold mb-4 text-blue-800 flex items-center">
+                          <div className="bg-blue-50 p-4 sm:p-6 rounded-xl">
+                            <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-blue-800 flex items-center">
                               <SafetyCertificateOutlined className="mr-2" />
                               Our Safety Measures
                             </h3>
-                            <ul className="space-y-3">
+                            <ul className="space-y-2 sm:space-y-3">
                               {[
                                 "Health-checked professionals",
                                 "Use of PPE (masks, gloves, sanitizers)",
@@ -408,10 +407,10 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                         <Divider className="my-8" />
 
                         <div>
-                          <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                          <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-gray-800">
                             How It Works
                           </h3>
-                          <div className="grid md:grid-cols-3 gap-6">
+                          <div className="grid md:grid-cols-3 gap-3 sm:gap-6">
                             {[
                               {
                                 icon: (
@@ -437,16 +436,16 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                             ].map((step, index) => (
                               <motion.div
                                 key={index}
-                                className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
-                                whileHover={{ y: -5 }}
+                                className="bg-white p-3 sm:p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
+                                whileHover={{ y: isMobile ? 0 : -5 }}
                               >
-                                <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mb-4">
+                                <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-blue-50 flex items-center justify-center mb-2 sm:mb-4 text-xl sm:text-3xl">
                                   {step.icon}
                                 </div>
-                                <h4 className="font-semibold text-lg mb-2 text-gray-800">
+                                <h4 className="font-semibold text-sm sm:text-lg mb-1 sm:mb-2 text-gray-800">
                                   {step.title}
                                 </h4>
-                                <p className="text-gray-600 text-sm">
+                                <p className="text-gray-600 text-xs sm:text-sm">
                                   {step.desc}
                                 </p>
                               </motion.div>
@@ -460,12 +459,12 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                     key: "details",
                     label: "Details",
                     children: (
-                      <div className="p-6">
-                        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+                      <div className="p-4 sm:p-6">
+                        <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">
                           Service Details
                         </h2>
                         <div className="prose max-w-none">
-                          <p className="text-gray-700 mb-6">
+                          <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6">
                             Our service is designed to provide comprehensive
                             solutions with the highest standards of quality and
                             reliability. Our certified professionals are trained
@@ -473,7 +472,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                             and care.
                           </p>
 
-                          <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                          <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-gray-800">
                             Service Inclusions
                           </h3>
                           <ul className="space-y-2 mb-6">
@@ -534,8 +533,8 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                     key: "faq",
                     label: "FAQ",
                     children: (
-                      <div className="p-6">
-                        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+                      <div className="p-4 sm:p-6">
+                        <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">
                           Frequently Asked Questions
                         </h2>
                         <ServiceFAQ />
@@ -546,23 +545,24 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                     key: "reviews",
                     label: `Reviews (${reviews?.length || 0})`,
                     children: (
-                      <div className="p-6">
-                        <div className="flex justify-between items-center mb-6">
-                          <h2 className="text-2xl font-bold text-gray-800">
+                      <div className="p-4 sm:p-6">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4 sm:mb-6">
+                          <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
                             Customer Reviews
                           </h2>
-                          <div className="flex items-center">
-                            <div className="flex items-center mr-4">
-                              <StarFilled className="text-yellow-400 text-2xl mr-1" />
-                              <span className="text-xl font-bold">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <div className="flex items-center">
+                              <StarFilled className="text-yellow-400 text-lg sm:text-2xl mr-1" />
+                              <span className="text-lg sm:text-xl font-bold">
                                 {serviceInfo?.rating}
                               </span>
-                              <span className="text-gray-500 ml-1">
+                              <span className="text-sm sm:text-base text-gray-500 ml-1">
                                 ({reviews?.length || 0} reviews)
                               </span>
                             </div>
                             <Button
                               type="primary"
+                              size={isMobile ? "small" : "middle"}
                               onClick={() =>
                                 document
                                   .getElementById("write-review")
@@ -599,9 +599,9 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                         {/* Write Review Section */}
                         <div
                           id="write-review"
-                          className="mt-12 pt-8 border-t border-gray-200"
+                          className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200"
                         >
-                          <h3 className="text-xl font-semibold mb-4">
+                          <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
                             Write a Review
                           </h3>
                           <form
@@ -609,14 +609,14 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
                             className="space-y-4"
                           >
                             <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-1">
+                              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
                                 Your Rating
                               </label>
                               <Rate
                                 tooltips={desc}
                                 onChange={setRating}
                                 value={rating}
-                                className="text-2xl"
+                                className="text-xl sm:text-2xl"
                               />
                               {rating ? (
                                 <span className="ml-2 text-gray-600">
@@ -661,23 +661,23 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
 
           {/* Sidebar */}
           <motion.aside
-            className="lg:w-96 flex-shrink-0 space-y-6"
+            className="w-full lg:w-96 flex-shrink-0 space-y-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            style={{ position: "sticky", top: "6rem", alignSelf: "flex-start" }}
+            style={{ position: isMobile ? "static" : "sticky", top: isMobile ? "auto" : "6rem", alignSelf: "flex-start" }}
           >
             {/* Booking Card */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden sticky top-24">
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-4">
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden" style={{ position: isMobile ? "static" : "sticky", top: isMobile ? "auto" : "6rem" }}>
+              <div className="p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4">
                   Book This Service
                 </h3>
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Starting from</span>
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                    <span className="text-sm sm:text-base text-gray-600">Starting from</span>
                     <div>
-                      <span className="text-3xl font-bold text-gray-900">
+                      <span className="text-2xl sm:text-3xl font-bold text-gray-900">
                         ৳{serviceInfo?.price}
                       </span>
                       <span className="text-gray-500 ml-1">+ materials</span>
@@ -686,11 +686,10 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
 
                   <Button
                     type="primary"
-                    size="large"
                     block
                     icon={<ShoppingCartOutlined />}
                     onClick={handleAddToCart}
-                    className="h-14 text-lg font-medium bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 border-0"
+                    className="h-10 sm:h-14 text-sm sm:text-lg font-medium bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 border-0"
                   >
                     Add to Cart
                   </Button>
@@ -754,17 +753,17 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
           className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40"
           style={{ zIndex: 1000 }}
         >
-          <div className="flex justify-between items-center p-3">
+          <div className="flex justify-between items-center gap-2 p-2 sm:p-3">
             <div>
-              <div className="text-sm text-gray-500">Starting from</div>
-              <div className="font-bold text-lg">${serviceInfo?.price}</div>
+              <div className="text-xs sm:text-sm text-gray-500">Starting from</div>
+              <div className="font-bold text-base sm:text-lg">৳{serviceInfo?.price}</div>
             </div>
             <Button
               type="primary"
-              size="large"
+              size="middle"
               icon={<ShoppingCartOutlined />}
               onClick={handleAddToCart}
-              className="h-12 px-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 border-0"
+              className="h-10 sm:h-12 px-3 sm:px-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 border-0 text-sm sm:text-base"
             >
               Book Now
             </Button>
