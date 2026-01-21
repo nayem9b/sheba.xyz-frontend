@@ -14,14 +14,9 @@ For demonstration purposes, use these super admin credentials:
 - **Password:** adminVitamin
 
 ---
-
-## Overview
-
-Sheba.xyz is a comprehensive service marketplace platform built with Next.js 14+ and the App Router architecture. The platform connects service providers with customers, offering a streamlined experience for booking, managing, and reviewing services across multiple categories.
-
 ## Architecture
 
-The platform follows a modern microservices architecture with a Next.js frontend and three specialized backend microservices.
+The platform follows a modern microservices architecture with a Next.js frontend and 3 backend microservices.
 
 ### Frontend
 
@@ -46,9 +41,6 @@ The database schema is designed to support the service marketplace functionality
 ![ER Diagram](https://i.ibb.co/bQbtt7d/ER-Diagram.png)
 
 ## Application Screenshots
-
-The following screenshots showcase the key interfaces of the Sheba.xyz platform:
-
 ### Homepage
 
 The main landing page of the application featuring service categories and featured offerings:
