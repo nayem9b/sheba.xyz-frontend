@@ -68,9 +68,7 @@ export default function Home() {
   console.log(categoryData, services);
 
   useEffect(() => {
-    fetch(
-      `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/users/${user?.id}`
-    )
+    fetch(`https://sheba-backkend.vercel.app/api/v1/users/${user?.id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data.data);
@@ -89,7 +87,7 @@ export default function Home() {
 
   if (isLoaded && isSignedIn) {
     if (!userInfo) {
-      fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/auth/signup`, {
+      fetch(`https://sheba-backkend.vercel.app/api/v1/auth/signup`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

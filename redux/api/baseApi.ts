@@ -5,7 +5,7 @@ export const baseApi = createApi({
   reducerPath: "api",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://sheba-xyz-backend-0wsp.onrender.com/api/v1",
+    baseUrl: "https://sheba-backkend.vercel.app/api/v1",
   }),
 
   endpoints: () => ({}),

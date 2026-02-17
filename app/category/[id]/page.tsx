@@ -17,9 +17,7 @@ const ServicesUnderCategoryPage = ({ params }: { params: any }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(
-      `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/services/category/${id}`
-    )
+    fetch(`https://sheba-backkend.vercel.app/api/v1/services/category/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setServicesUnderCategory(data?.data);

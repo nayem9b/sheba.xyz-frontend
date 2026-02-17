@@ -88,7 +88,7 @@ const PurchasePage = ({ params }: { params: any }) => {
   }
 
   useEffect(() => {
-    fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/services/${id}`)
+    fetch(`https://sheba-backkend.vercel.app/api/v1/services/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setServiceData(data);
@@ -152,7 +152,7 @@ const PurchasePage = ({ params }: { params: any }) => {
     };
     console.log(SendPurchaseInfo);
     if (confirmation === "I Agree") {
-      fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/book`, {
+      fetch(`https://sheba-backkend.vercel.app/api/v1/book`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -176,7 +176,7 @@ const PurchasePage = ({ params }: { params: any }) => {
             <article className="mb-10">
               <div className="mb-8 overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
                 <Image
-                  alt={serviceInfo?.name || ''}
+                  alt={serviceInfo?.name || ""}
                   src={serviceInfo?.image}
                   width={600}
                   height={320}

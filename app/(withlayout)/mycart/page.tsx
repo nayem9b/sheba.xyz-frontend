@@ -23,9 +23,7 @@ const MyCart = () => {
   const [CartItems, setCartItems] = useState<any>();
 
   useEffect(() => {
-    fetch(
-      `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/mycart/${user?.id}`
-    )
+    fetch(`https://sheba-backkend.vercel.app/api/v1/mycart/${user?.id}`)
       .then((res) => res.json())
       .then((data) => {
         setCartItems(data?.data);
@@ -44,7 +42,7 @@ const MyCart = () => {
     ? CartItems.reduce(
         (total: number, item: any) =>
           total + (parseFloat(item?.service?.price) || 0),
-        0
+        0,
       )
     : 0;
   const tax = +(subtotal * 0.12).toFixed(2);

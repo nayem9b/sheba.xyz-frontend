@@ -60,12 +60,8 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
     const fetchServiceData = async () => {
       try {
         const [serviceRes, reviewsRes] = await Promise.all([
-          fetch(
-            `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/services/${id}`
-          ),
-          fetch(
-            `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/reviews/${id}`
-          ),
+          fetch(`https://sheba-backkend.vercel.app/api/v1/services/${id}`),
+          fetch(`https://sheba-backkend.vercel.app/api/v1/reviews/${id}`),
         ]);
 
         const serviceData = await serviceRes.json();
@@ -90,12 +86,12 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
 
     try {
       const response = await fetch(
-        "https://sheba-xyz-backend-0wsp.onrender.com/api/v1/add-to-cart",
+        "https://sheba-backkend.vercel.app/api/v1/add-to-cart",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: user.id, servicesId: id }),
-        }
+        },
       );
 
       if (!response.ok) throw new Error("Failed to add to cart");
@@ -127,7 +123,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
 
     try {
       const response = await fetch(
-        "https://sheba-xyz-backend-0wsp.onrender.com/api/v1/review",
+        "https://sheba-backkend.vercel.app/api/v1/review",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -138,7 +134,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
             userId: user.id,
             userImage: user.imageUrl,
           }),
-        }
+        },
       );
 
       if (!response.ok) throw new Error("Failed to post review");
@@ -148,7 +144,7 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
 
       // Refresh reviews
       const reviewsRes = await fetch(
-        `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/reviews/${id}`
+        `https://sheba-backkend.vercel.app/api/v1/reviews/${id}`,
       );
       const reviewsData = await reviewsRes.json();
       setReviews(reviewsData.data || []);
@@ -171,13 +167,13 @@ const SingleServicePage = ({ params }: { params: { id: string } }) => {
   const bookingResult =
     allBookingsArray?.data?.filter(
       (booking: any) =>
-        booking.userId === user?.id && booking?.servicesId === serviceInfo?.id
+        booking.userId === user?.id && booking?.servicesId === serviceInfo?.id,
     ) || [];
 
   const reviewResult =
     allReviewsArray?.data?.filter(
       (review: any) =>
-        review.userId === user?.id && review?.servicesId === serviceInfo?.id
+        review.userId === user?.id && review?.servicesId === serviceInfo?.id,
     ) || [];
 
   return (

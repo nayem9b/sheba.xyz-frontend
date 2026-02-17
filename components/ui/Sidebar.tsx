@@ -20,9 +20,7 @@ const SideBar = () => {
   };
 
   useEffect(() => {
-    fetch(
-      `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/users/${user?.id}`
-    )
+    fetch(`https://sheba-backkend.vercel.app/api/v1/users/${user?.id}`)
       .then((res) => res.json())
       .then((data) => {
         setDbUserRole(data?.data?.role);

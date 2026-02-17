@@ -34,7 +34,7 @@ const CreateContentpage = () => {
             image: imgData?.data?.url,
           };
 
-          fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/content`, {
+          fetch(`https://sheba-backkend.vercel.app/api/v1/content`, {
             method: "POST",
             headers: {
               "content-type": "application/json",

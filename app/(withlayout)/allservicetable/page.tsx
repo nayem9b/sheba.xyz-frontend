@@ -65,14 +65,14 @@ const allServices = () => {
         };
 
         const res = await fetch(
-          `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/create-service`,
+          `https://sheba-backkend.vercel.app/api/v1/create-service`,
           {
             method: "POST",
             headers: {
               "content-type": "application/json",
             },
             body: JSON.stringify(addServiceSendData),
-          }
+          },
         );
         const data = await res.json();
         message.success("Service added successfully!");

@@ -16,7 +16,7 @@ const EditBookingPage = ({ params }: { params: any }) => {
   const { id } = params;
 
   useEffect(() => {
-    fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/bookings/${id}`)
+    fetch(`https://sheba-backkend.vercel.app/api/v1/bookings/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBookingData(data);
@@ -29,7 +29,7 @@ const EditBookingPage = ({ params }: { params: any }) => {
 
   const onDateChange: DatePickerProps["onChange"] = (
     date: any,
-    dateString: any
+    dateString: any,
   ) => {
     setToLocalStorage("date", dateString as string);
   };
@@ -44,16 +44,13 @@ const EditBookingPage = ({ params }: { params: any }) => {
     };
 
     try {
-      await fetch(
-        `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/bookings/${id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(sendUpdateBookingData),
-        }
-      );
+      await fetch(`https://sheba-backkend.vercel.app/api/v1/bookings/${id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(sendUpdateBookingData),
+      });
       message.success("Booking updated successfully!");
       router.push("/allbookings");
     } catch (err: any) {

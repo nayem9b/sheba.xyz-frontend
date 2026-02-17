@@ -19,7 +19,7 @@ const EditUserPage = ({ params }: IDProps) => {
   };
 
   useEffect(() => {
-    fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/users/db/${id}`)
+    fetch(`https://sheba-backkend.vercel.app/api/v1/users/db/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -34,14 +34,14 @@ const EditUserPage = ({ params }: IDProps) => {
       role: role,
     };
     fetch(
-      `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/users/${userData?.userId}`,
+      `https://sheba-backkend.vercel.app/api/v1/users/${userData?.userId}`,
       {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify(updatedInfo),
-      }
+      },
     )
       .then((res) => res.json())
       .then((data) => {

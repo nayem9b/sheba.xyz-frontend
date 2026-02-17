@@ -23,7 +23,7 @@ const EditServicepage = ({ params }: { params: any }) => {
     value: category?.id,
   }));
   useEffect(() => {
-    fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/services/${id}`)
+    fetch(`https://sheba-backkend.vercel.app/api/v1/services/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setServiceData(data?.data);
@@ -62,16 +62,13 @@ const EditServicepage = ({ params }: { params: any }) => {
             rating: "5",
           };
 
-          fetch(
-            `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/services/${id}`,
-            {
-              method: "PATCH",
-              headers: {
-                "content-type": "application/json",
-              },
-              body: JSON.stringify(addServiceSendData),
-            }
-          )
+          fetch(`https://sheba-backkend.vercel.app/api/v1/services/${id}`, {
+            method: "PATCH",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(addServiceSendData),
+          })
             .then((res) => res.json())
             .then((data) => {
               console.log(data);

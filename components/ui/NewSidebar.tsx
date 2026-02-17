@@ -68,9 +68,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     if (user?.id) {
-      fetch(
-        `https://sheba-xyz-backend-0wsp.onrender.com/api/v1/users/${user.id}`
-      )
+      fetch(`https://sheba-backkend.vercel.app/api/v1/users/${user.id}`)
         .then((res) => res.json())
         .then((data) => {
           setDbUserRole(data?.data?.role || "");
@@ -140,7 +138,7 @@ const Sidebar = () => {
   ];
 
   const filteredNavItems = navItems.filter((item) =>
-    item.roles.some((role) => [userRole, dbUserRole].includes(role))
+    item.roles.some((role) => [userRole, dbUserRole].includes(role)),
   );
 
   return (
@@ -187,13 +185,13 @@ const Sidebar = () => {
                           "flex items-center p-3 rounded-lg transition-colors duration-200",
                           isActive
                             ? "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400"
-                            : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+                            : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800",
                         )}
                       >
                         <span
                           className={cn(
                             "flex-shrink-0",
-                            collapsed ? "mx-auto" : "mr-3"
+                            collapsed ? "mx-auto" : "mr-3",
                           )}
                         >
                           {item.icon}

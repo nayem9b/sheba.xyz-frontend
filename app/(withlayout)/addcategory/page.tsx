@@ -57,7 +57,7 @@ const AddCategorypage = () => {
             image: imgData?.data?.url,
           };
 
-          fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/categories`, {
+          fetch(`https://sheba-backkend.vercel.app/api/v1/categories`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -85,7 +85,7 @@ const AddCategorypage = () => {
     </div>
   );
   const handleChange: UploadProps["onChange"] = (
-    info: UploadChangeParam<UploadFile>
+    info: UploadChangeParam<UploadFile>,
   ) => {
     if (info.file.status === "uploading") {
       setLoading(true);

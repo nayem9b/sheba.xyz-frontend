@@ -8,7 +8,7 @@ import { useAllContentsQuery } from "@/redux/api/contentsApi";
 const AllContentspage = () => {
   // const [contentsData, setContentsData] = useState<any>();
   // useEffect(() => {
-  //   fetch(`https://sheba-xyz-backend-0wsp.onrender.com/api/v1/contents`)
+  //   fetch(`https://sheba-backkend.vercel.app/api/v1/contents`)
   //     .then((res) => res.json())
   //     .then((data) => {
   //       console.log(data.data);
