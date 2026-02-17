@@ -60,50 +60,51 @@ const Navbar = () => {
                 ></path>
               </svg>
             </button>
+            <div className="ml-52">
+              <div className="hidden lg:flex lg:items-center lg:justify-center lg:space-x-10">
+                <Link
+                  href="/"
+                  title=""
+                  className="text-base text-black transition-all duration-200 hover:text-opacity-80 no-underline"
+                >
+                  {" "}
+                  Home
+                </Link>
 
-            <div className="hidden lg:flex lg:items-center lg:justify-center lg:space-x-10">
-              <Link
-                href="/"
-                title=""
-                className="text-base text-black transition-all duration-200 hover:text-opacity-80 no-underline"
-              >
-                {" "}
-                Home
-              </Link>
+                <Link
+                  href="/allcategories"
+                  title=""
+                  className="text-base text-black transition-all duration-200 hover:text-opacity-80 no-underline"
+                >
+                  {" "}
+                  Categories
+                </Link>
+                <Link
+                  href="/allservices"
+                  title=""
+                  className="text-base text-black transition-all duration-200 hover:text-opacity-80 no-underline"
+                >
+                  {" "}
+                  Services
+                </Link>
 
-              <Link
-                href="/allcategories"
-                title=""
-                className="text-base text-black transition-all duration-200 hover:text-opacity-80 no-underline"
-              >
-                {" "}
-                Categories
-              </Link>
-              <Link
-                href="/allservices"
-                title=""
-                className="text-base text-black transition-all duration-200 hover:text-opacity-80 no-underline"
-              >
-                {" "}
-                Services
-              </Link>
-
-              <Link
-                href="/allcontents"
-                title=""
-                className="text-base text-black transition-all duration-200 hover:text-opacity-80 no-underline"
-              >
-                {" "}
-                Blogs{" "}
-              </Link>
-              <Link
-                href="/#faq"
-                title=""
-                className="text-base text-black transition-all duration-200 hover:text-opacity-80 no-underline"
-              >
-                {" "}
-                FAQ
-              </Link>
+                <Link
+                  href="/allcontents"
+                  title=""
+                  className="text-base text-black transition-all duration-200 hover:text-opacity-80 no-underline"
+                >
+                  {" "}
+                  Blogs{" "}
+                </Link>
+                <Link
+                  href="/#faq"
+                  title=""
+                  className="text-base text-black transition-all duration-200 hover:text-opacity-80 no-underline"
+                >
+                  {" "}
+                  FAQ
+                </Link>
+              </div>
             </div>
 
             {user ? (

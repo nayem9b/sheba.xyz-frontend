@@ -27,9 +27,9 @@ const ServiceHomeCard = ({ service }: any) => {
           <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
             {service?.name}
           </h3>
-          <div className="mt-3 text-sm text-gray-500 flex-grow">
+          {/* <div className="mt-3 text-sm text-gray-500 flex-grow">
             Click to explore
-          </div>
+          </div> */}
           <div className="mt-4 inline-flex items-center text-blue-600 font-medium text-sm group-hover:translate-x-1 transition-transform duration-200">
             View details →
           </div>

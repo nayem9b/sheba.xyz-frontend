@@ -66,7 +66,7 @@ const Homepage = () => {
                 <Badge className="mb-4 px-3 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm font-medium bg-white/10 backdrop-blur-sm text-slate-100 border border-white/20 hover:bg-white/20">
                   Trusted by 10,000+ Customers
                 </Badge>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-pink-600 leading-tight mb-6">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-pink-600 leading-tight -mb-4 mt-16">
                   Professional Home Services
                 </h1>
                 <p className="text-sm sm:text-base md:text-lg lg:text-xl text-zinc-800 mb-8 max-w-2xl mx-auto lg:mx-0 bg-white/10 backdrop-blur-sm px-4 py-3 sm:px-6 sm:py-4 rounded-xl sm:rounded-2xl border border-white/20">

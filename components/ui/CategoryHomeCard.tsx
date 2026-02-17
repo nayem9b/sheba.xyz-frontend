@@ -18,7 +18,7 @@ const CategoryHomeCard = ({ category }: any) => {
           height={60}
         />
 
-        <p className="font-medium text-center mx-auto ">{category?.title}</p>
+        <p className="font-medium ml-8 ">{category?.title}</p>
       </Link>
     </div>
   );

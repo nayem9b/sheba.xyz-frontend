@@ -197,7 +197,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
-                    className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/5"
+                    className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/5 "
                   >
                     <CategoryHomeCard category={category} />
                   </motion.div>
